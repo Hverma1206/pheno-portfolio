@@ -7,6 +7,7 @@ const ICONS = {
   youtube: <><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10.2 9.2v5.6l4.8-2.8z" fill="currentColor"></path></>,
   x: <path d="M5 4l14 16M19 4 5 20"></path>,
   discord: <path d="M4 5h16v11H9l-5 4z"></path>,
+  whatsapp: <><path d="M3.5 20.5l1.3-4.4a8.5 8.5 0 1 1 3.3 3.2z"></path><path d="M9.3 8.8c.2 3.2 2.7 5.7 5.9 5.9"></path></>,
   email: <><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 6.5 12 13l8.5-6.5"></path></>,
   // any social added to SOCIALS without its own icon gets a link icon
   link: <path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path>,
