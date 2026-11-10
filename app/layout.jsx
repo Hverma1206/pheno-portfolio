@@ -1,4 +1,24 @@
+import localFont from 'next/font/local';
+import { Gloria_Hallelujah } from 'next/font/google';
 import './globals.css';
+
+// Excalifont (Excalidraw, SIL OFL 1.1) is the site's typeface; next/font preloads it
+// and size-matches the fallback so the page doesn't jump when it loads.
+const excalifont = localFont({
+  src: '../fonts/Excalifont-Regular.woff2',
+  weight: '400',
+  style: 'normal',
+  display: 'swap',
+  variable: '--font-excalifont',
+});
+
+// Secondary face, only for the name and the one highlighted word per line (.f2 in globals.css).
+const gloria = Gloria_Hallelujah({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-gloria',
+});
 
 export const metadata = {
   title: 'Pheno — video editor & motion designer',
@@ -11,13 +31,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Kalam:wght@400;700&family=Space+Mono:wght@400;700&display=swap" />
-      </head>
+    <html lang="en" className={`${excalifont.variable} ${gloria.variable}`}>
       <body>{children}</body>
     </html>
   );

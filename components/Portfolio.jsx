@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { SECTIONS, TOOLS, WORK, WORK_LABELS, WORK_TABS } from '@/lib/data';
+import { TOOLS, WORK, WORK_LABELS } from '@/lib/data';
+import Blinds from './Blinds';
 import Nav from './sections/Nav';
 import Hero from './sections/Hero';
 import Bag from './sections/Bag';
@@ -20,25 +21,27 @@ export default function Portfolio({ handNotes = true, motion = true }) {
   const setState = useCallback((patch) => setS((prev) => ({ ...prev, ...patch })), []);
   const raf = useRef(0);
 
-  // Play a section's animations only once it scrolls into view.
+  // Each [data-io] block (a section, a heading, a tile, a card…) plays its animations once it
+  // scrolls into view; CSS keeps them paused until data-seen is set. Set straight on the DOM so
+  // no re-render is needed, and React never touches an attribute it doesn't own.
   useEffect(() => {
     const els = document.querySelectorAll('[data-io]');
-    const mark = (id) =>
-      setS((prev) => (prev.seen && prev.seen[id] ? prev : { ...prev, seen: { ...(prev.seen || {}), [id]: true } }));
+    const show = (el) => el.setAttribute('data-seen', '');
     if (!('IntersectionObserver' in window)) {
-      els.forEach((el) => mark(el.getAttribute('data-io')));
+      els.forEach(show);
       return undefined;
     }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((en) => {
           if (en.isIntersecting) {
-            mark(en.target.getAttribute('data-io'));
+            show(en.target);
             io.unobserve(en.target);
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      // threshold 0: a block inside a section always triggers no earlier than its section.
+      { threshold: 0, rootMargin: '0px 0px -12% 0px' }
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
@@ -47,7 +50,6 @@ export default function Portfolio({ handNotes = true, motion = true }) {
   useEffect(() => () => cancelAnimationFrame(raf.current), []);
 
   const v = useMemo(() => {
-    const filter = s.filter || 'all';
     const playing = s.paused !== true;
     const mx = s.mx || 0;
     const my = s.my || 0;
@@ -67,33 +69,29 @@ export default function Portfolio({ handNotes = true, motion = true }) {
     });
 
     // Everything, in motion
-    const items = WORK.filter((w) => filter === 'all' || w.k === filter).map((w) => ({
+    const items = WORK.map((w) => ({
       title: w.title,
       sub: w.sub,
       dur: w.dur || '',
       th: w.th || '',
       glyph: w.glyph || '',
       kind: WORK_LABELS[w.k],
-      cls: w.k === 'note' ? 'sp-note is-note' : w.k === 'reel' ? 'sp-reel is-media' : 'sp-vid is-media',
+      cls: w.k === 'note' ? 'sp-note is-note' : w.k === 'reel' ? 'sp-reel is-media' : w.wide ? 'sp-wide is-media' : 'sp-vid is-media',
       href: w.k === 'note' ? '#contact' : '#proud',
       aria: w.k === 'note' ? w.title : `play ${w.title}`,
-    }));
-    const tabs = WORK_TABS.map(([id, label]) => ({
-      label,
-      on: filter === id ? 'on' : '',
-      pressed: filter === id ? 'true' : 'false',
-      pick: () => setState({ filter: id }),
+      embed: w.yt
+        ? `https://www.youtube-nocookie.com/embed/${w.yt}?autoplay=1&rel=0&modestbranding=1&playsinline=1${w.end ? `&end=${w.end}` : ''}`
+        : w.vimeo
+          ? `https://player.vimeo.com/video/${w.vimeo}?autoplay=1&title=0&byline=0&portrait=0&dnt=1`
+          : w.ig
+            ? `https://www.instagram.com/reel/${w.ig}/embed/`
+            : '',
+      thumb: w.thumb || (w.yt ? `https://i.ytimg.com/vi/${w.yt}/maxresdefault.jpg` : ''),
     }));
 
     const t = (k1, k2) => `translate(${(mx * k1).toFixed(1)}px,${(my * k2).toFixed(1)}px)`;
-    const seen = s.seen || {};
-    const io = {};
-    SECTIONS.forEach((k) => {
-      io[k] = seen[k] ? 'inview' : '';
-    });
 
     return {
-      io,
       rootCls: (handNotes ? '' : 'nonotes nolinks ') + (motion ? '' : 'calm'),
       pA: t(-30, -22),
       pB: t(26, 18),
@@ -113,7 +111,6 @@ export default function Portfolio({ handNotes = true, motion = true }) {
       togglePlay: () => setS((prev) => ({ ...prev, paused: prev.paused !== true })),
       bag,
       sel,
-      tabs,
       items,
     };
   }, [s, handNotes, motion, setState]);
@@ -121,10 +118,10 @@ export default function Portfolio({ handNotes = true, motion = true }) {
   return (
     <div
       id="top"
-      className={`ruled ${v.rootCls}`}
-      style={{ position: 'relative', backgroundColor: '#0f0d13', color: '#efeaf6', fontFamily: "'Fraunces', Georgia, serif", overflowX: 'hidden' }}
+      className={v.rootCls}
+      style={{ position: 'relative', color: '#efeaf6', overflowX: 'clip' }}
     >
-      <div className="margin-line" aria-hidden="true" />
+      <Blinds still={!motion} />
       <Nav v={v} />
       <Hero v={v} />
       <Bag v={v} />

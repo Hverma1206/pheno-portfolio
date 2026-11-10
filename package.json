@@ -4,7 +4,7 @@
   "private": true,
   "description": "Portfolio for Pheno (Shreyansh) — video editor & motion designer.",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start"
   },

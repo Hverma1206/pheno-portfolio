@@ -3,15 +3,20 @@
 export default function Nav({ v }) {
   return (
     <>
-<header style={{ position: "sticky", top: "0", zIndex: "50", background: "rgba(15,13,19,.82)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", borderBottom: "1px solid #241e2e" }}>
-<nav className="wrap" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "10px 24px", minHeight: "76px" }}>
-<div className="sm" style={{ display: "flex", flexWrap: "wrap", gap: "4px 26px" }}>
+<header className="hdr">
+<nav className="hnav" aria-label="main">
+<a href="#top" className="hbrand kl f2" aria-label="Pheno, back to top">
+{"Pheno"}
+<svg className="hstar" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"></path></svg>
+</a>
+<div className="hlinks sm">
 <a className="nl" href="#bag">{"the bag"}</a>
 <a className="nl" href="#proud">{"proudest"}</a>
 <a className="nl" href="#work">{"work"}</a>
 <a className="nl" href="#words">{"words"}</a>
-<a className="nl" href="#contact">{"write to me"}</a>
 </div>
+<a href="#socials" className="hcta">{"write to me "}<span aria-hidden="true">{"→"}</span></a>
+<span className="hprog" aria-hidden="true"></span>
 </nav>
 </header>
     </>
