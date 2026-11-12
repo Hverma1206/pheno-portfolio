@@ -66,15 +66,14 @@ export default function Portfolio({ handNotes = true, motion = true }) {
           total: String(TOOLS.length).padStart(2, '0'),
           name: d[1],
           line: d[2],
-          color: d[5],
+          color: d[4],
           uses: d[3].map((u) => ({ label: u })),
         };
       }
       return {
         id: d[0],
         name: d[1],
-        tip: d[4],
-        color: d[5],
+        color: d[4],
         on: on ? 'on' : '',
         pressed: on ? 'true' : 'false',
         pick: () => setS((prev) => (prev.tool === d[0] ? prev : { ...prev, tool: d[0] })),

@@ -1,4 +1,4 @@
-// What's in my bag — spotlight on the picked app + round app dock
+// What's in my bag — a paper page with one taped polaroid per app; the picked one is captioned below
 // Ported from the design canvas (05 — Diary × Edit Bay).
 import { Fragment } from 'react';
 
@@ -22,25 +22,24 @@ export default function Bag({ v }) {
 <div><p className="sm kicker">{"page 02 — the stack"}</p><h2 className="fr h2">{"what's in "}<i className="nr" style={{ color: "#a78bfa" }}>{"my bag."}</i></h2></div>
 <p className="kl doodle" style={{ margin: "0", fontSize: "26px", color: "#c4b5fd", transform: "rotate(-3deg)" }}>{"(the essentials. no gatekeeping.)"}</p>
 </div>
-<div className="dockpanel rv" data-io style={{ "--c": v.sel.color }}>
-<div className="bagstage" aria-hidden="true">
-<span className="orbit o1"></span>
-<span className="orbit o2"></span>
-<span className="bagbig" key={v.sel.id}><Logo id={v.sel.id} /></span>
-</div>
-<div className="baginfo">
-<div className="detail" aria-live="polite">
-<div className="bagswap" key={v.sel.id}>
-<p className="sm" style={{ margin: "0", fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", color: "#a9a1b8" }}>{v.sel.idx}{" / "}{v.sel.total}{" — in the bag"}</p>
-<p className="nr bagname">{v.sel.name}</p>
-<p className="kl" style={{ margin: "18px 0 0", fontSize: "24px", lineHeight: "1.4", color: "#d6d0e2" }}>{v.sel.line}</p>
-<div className="chips">{(v.sel.uses || []).map((u, $index) => (<Fragment key={$index}><span className="uchip">{u.label}</span></Fragment>))}</div>
-</div>
-</div>
-<div className="dock">
+<div className="bagpage gridpaper rv" data-io style={{ "--c": v.sel.color }}>
+<span className="pcorner" aria-hidden="true" style={{ left: "22px", top: "22px", borderWidth: "2px 0 0 2px" }}></span>
+<span className="pcorner" aria-hidden="true" style={{ right: "22px", top: "22px", borderWidth: "2px 2px 0 0" }}></span>
+<span className="pcorner" aria-hidden="true" style={{ left: "22px", bottom: "22px", borderWidth: "0 0 2px 2px" }}></span>
+<span className="pcorner" aria-hidden="true" style={{ right: "22px", bottom: "22px", borderWidth: "0 2px 2px 0" }}></span>
+<div className="fan">
 {v.tools.map((t) => (
-<button key={t.id} className={`app ${t.on}`} style={{ "--c": t.color }} onClick={t.pick} onMouseEnter={t.pick} aria-pressed={t.pressed} aria-label={t.name}><span className="tip kl">{t.tip}</span><span className="icon"><Logo id={t.id} /></span></button>
+<button key={t.id} className={`tpol ${t.on}`} style={{ "--c": t.color }} onClick={t.pick} onMouseEnter={t.pick} aria-pressed={t.pressed}><span className="tape" aria-hidden="true"></span><span className="tph"><Logo id={t.id} /></span><span className="tcap kl">{t.name}</span></button>
 ))}
+</div>
+<div className="bagnote" aria-live="polite">
+<div className="bagswap" key={v.sel.id}>
+<p className="sm" style={{ margin: "0", fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", color: "#6b6478" }}>{v.sel.idx}{" / "}{v.sel.total}{" — in the bag"}</p>
+<p className="nr bagname"><span className="bhl">{v.sel.name}</span></p>
+</div>
+<div className="bagswap" key={`${v.sel.id}-use`}>
+<p className="kl" style={{ margin: "0", fontSize: "26px", lineHeight: "1.35", color: "#3b3448" }}>{v.sel.line}</p>
+<div className="chips">{(v.sel.uses || []).map((u, $index) => (<Fragment key={$index}><span className="uchip">{u.label}</span></Fragment>))}</div>
 </div>
 </div>
 </div>

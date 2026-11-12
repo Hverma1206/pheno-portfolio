@@ -17,7 +17,7 @@ export default function Hero({ v }) {
 <h1 className="fr" style={{ position: "relative", margin: "40px 0 0", fontWeight: "350", fontSize: "clamp(40px, 6vw, 92px)", lineHeight: ".95", letterSpacing: "-.03em", maxWidth: "880px" }}>
 <span className="ink d1">{"edits"}</span>{" "}<span className="ink d1">{"that"}</span>{" "}<span className="ink d2">{"feel"}</span><br />
 <span className="ink d2" style={{ fontStyle: "italic" }}>{"warm"}<span style={{ color: "#7c3aed" }}>{"."}</span></span><span className="ink d3 hl nr" style={{ fontStyle: "italic" }}>{"worthy"}<span style={{ color: "#7c3aed" }}>{"."}</span></span><br />
-<span className="ink d3 nr" style={{ position: "relative", fontStyle: "italic", fontWeight: "700" }}>{"wonderful"}<span style={{ color: "#7c3aed" }}>{"."}</span>
+<span className="ink d3 nr" style={{ position: "relative", fontStyle: "italic", fontWeight: "700", color: "#5b2fe0" }}>{"wonderful"}<span style={{ color: "#7c3aed" }}>{"."}</span>
 <svg className="circ doodle" aria-hidden="true" viewBox="0 0 400 140" preserveAspectRatio="none" style={{ position: "absolute", left: "-6%", top: "-10%", width: "112%", height: "125%", overflow: "visible", color: "#7c3aed" }} fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M210 12 C 340 6, 398 40, 390 76 C 380 122, 250 136, 150 128 C 52 120, 4 96, 10 64 C 18 26, 120 8, 250 14"></path></svg>
 </span>
 </h1>
