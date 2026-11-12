@@ -55,32 +55,7 @@ export default function Portfolio({ handNotes = true, motion = true }) {
     const my = s.my || 0;
 
     // What's in my bag
-    const picked = s.tool || 'pr';
-    let sel = null;
-    const tools = TOOLS.map((d, i) => {
-      const on = picked === d[0];
-      if (on) {
-        sel = {
-          id: d[0],
-          idx: String(i + 1).padStart(2, '0'),
-          total: String(TOOLS.length).padStart(2, '0'),
-          name: d[1],
-          line: d[2],
-          color: d[4],
-          at: d[5],
-          uses: d[3].map((u) => ({ label: u })),
-        };
-      }
-      return {
-        id: d[0],
-        name: d[1],
-        color: d[4],
-        at: d[5],
-        on: on ? 'on' : '',
-        pressed: on ? 'true' : 'false',
-        pick: () => setS((prev) => (prev.tool === d[0] ? prev : { ...prev, tool: d[0] })),
-      };
-    });
+    const tools = TOOLS.map((d) => ({ id: d[0], name: d[1], line: d[2], uses: d[3].join(' · '), color: d[4] }));
 
     // Everything, in motion
     const items = WORK.map((w) => ({
@@ -124,7 +99,6 @@ export default function Portfolio({ handNotes = true, motion = true }) {
       playLabel: playing ? 'pause showreel' : 'play showreel',
       togglePlay: () => setS((prev) => ({ ...prev, paused: prev.paused !== true })),
       tools,
-      sel,
       items,
     };
   }, [s, handNotes, motion, setState]);

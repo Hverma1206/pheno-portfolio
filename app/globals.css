@@ -94,46 +94,17 @@ html{scroll-behavior:smooth}
 .spin{animation:spin 14s linear infinite}
 .paused *{animation-play-state:paused !important}
 
-/* bag: an edit bay — a program monitor over a timeline with one clip per app. --c is an app's colour, set inline by Bag.jsx */
-@property --c{syntax:'<color>';inherits:true;initial-value:#a78bfa}
-.bay{position:relative;overflow:hidden;padding-bottom:44px;border:1px solid #2a2236;border-radius:28px;background:radial-gradient(70% 60% at 18% 0,color-mix(in srgb,var(--c) 13%,transparent),transparent),#15111c;box-shadow:0 40px 120px -40px rgba(124,58,237,.45);transition:--c .5s}
-.baybar{display:flex;align-items:center;gap:16px;padding:15px 24px;border-bottom:1px solid #2a2236;font-size:13px;letter-spacing:.06em;color:#8d85a0}
-.baydots{display:flex;gap:7px}
-.baydots i{width:11px;height:11px;border-radius:50%;background:#4a4160}
-.baybody{padding:40px 48px 0}
-.baytop{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:20px 52px;align-items:center}
-.mon{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;border:1px solid #2a2236;border-radius:14px;container-type:inline-size;background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--c) 36%,#0c0912),#0c0912 72%)}
-.mon .pcorner{border-color:var(--c)}
-.montag{position:absolute;left:34px;top:26px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#a9a1b8}
-.montag::before{content:'';display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;background:var(--c)}
-.logo{display:flex;flex:none}
+/* bag: one plain card per app, four to a row (the last three sit centred). --c is the app's colour, set inline by Bag.jsx */
+.tools{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin:0;padding:0;list-style:none}
+/* fill is backwards, not both, so the hover lift is free once a card has risen in */
+.tool{flex:0 1 calc((100% - 48px)/4);min-width:0;padding:24px;border:1px solid #2a2236;border-radius:20px;background:radial-gradient(120% 90% at 0 0,color-mix(in srgb,var(--c) 16%,transparent),transparent 62%),#15111c;transition:translate .3s,border-color .3s,box-shadow .3s;animation:rise .7s var(--d,0s) cubic-bezier(.16,1,.3,1) backwards}
+.tool:hover{translate:0 -4px;border-color:var(--c);box-shadow:0 18px 40px -20px var(--c)}
+.thead{display:flex;align-items:center;gap:14px;font-size:24px;line-height:1.1;color:#f6f2fb}
+.logo{display:flex;flex:none;width:44px;height:44px;font-size:44px}
 .logo img{width:100%;height:100%;object-fit:contain}
-.mon .logo{width:26cqw;height:26cqw;font-size:26cqw}
 .adobe{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:100%;height:100%;border:.14em solid var(--c);border-radius:.36em;background:color-mix(in srgb,var(--c) 12%,#0c0912);color:var(--c);font:700 .46em/1 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.02em}
-.bagswap{display:block;animation:bagswap .4s cubic-bezier(.16,1,.3,1) both}
-@keyframes bagswap{from{opacity:0;translate:0 14px}}
-.bagname{margin:10px 0 0;font-size:clamp(44px,5vw,76px);font-style:italic;font-weight:600;line-height:1.05;letter-spacing:-.01em;color:#f6f2fb}
-.bhl{padding:0 .1em;background:linear-gradient(transparent 56%,color-mix(in srgb,var(--c) 50%,transparent) 56% 92%,transparent 92%);border-radius:.1em}
-.bagline{margin:14px 0 0;font-size:26px;line-height:1.35;color:#cfc8dc}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.uchip{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border:1.5px solid #3a3248;border-radius:999px;background:rgba(255,255,255,.04);font:400 14px var(--font-excalifont),cursive;color:#cfc8dc}
-/* timeline: a label column (--lw) + 24 columns; row 1 is the ruler, rows 2-5 the tracks. --ph = the picked clip's start column */
-.tl{--lw:72px;position:relative;display:grid;grid-template-columns:var(--lw) repeat(24,minmax(0,1fr));grid-template-rows:32px repeat(4,52px);row-gap:6px;margin-top:40px}
-.tl::before{content:'';grid-area:1/2/2/-1;align-self:end;height:7px;background:repeating-linear-gradient(90deg,#3a3248 0 1px,transparent 1px calc(100%/24))}
-.tstage{grid-row:1;overflow:hidden;padding-left:8px;border-left:1px solid #5a5070;font-size:11px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;color:#8d85a0}
-.tname{grid-column:1;align-self:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8d85a0}
-.tlane{grid-column:2/-1;border-radius:10px;background:rgba(255,255,255,.035)}
-.clip{position:relative;z-index:1;display:flex;align-items:center;gap:10px;min-width:0;margin:0 2px;padding:0 12px;overflow:hidden;border:1.5px solid color-mix(in srgb,var(--c) 50%,transparent);border-radius:10px;background:color-mix(in srgb,var(--c) 17%,#17121f);color:#d9d3e4;font-size:18px;white-space:nowrap;cursor:pointer;transition:background .3s,border-color .3s,color .3s,box-shadow .3s;animation:clipIn .7s var(--d,0s) cubic-bezier(.16,1,.3,1) backwards}
-/* clips wipe in from their left edge. fill is backwards, not both, so the clip-path lets go of the picked clip's glow afterwards */
-@keyframes clipIn{from{opacity:0;clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
-.clip.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 42%,#17121f);color:#fff;box-shadow:0 12px 34px -10px var(--c)}
-.clip:focus-visible{outline:2px solid #c4b5fd;outline-offset:2px}
-.clip .logo{width:26px;height:26px;font-size:26px}
-/* svg logos get the same dark chip the Adobe badges have, so an orange logo still reads on its own orange clip */
-.clip .logo img{padding:3px;border-radius:.26em;background:#0c0912}
-/* the playhead runs behind the clips (they are z-index 1), so it never strikes through a clip's name */
-.phead{position:absolute;z-index:0;top:0;bottom:0;left:calc(var(--lw) + (100% - var(--lw))*(var(--ph) - 1)/24);width:2px;margin-left:-1px;background:var(--c);pointer-events:none;transition:left .5s cubic-bezier(.16,1,.3,1)}
-.phead::before{content:'';position:absolute;left:-6px;top:0;width:14px;height:16px;background:var(--c);clip-path:polygon(0 0,100% 0,100% 55%,50% 100%,0 55%)}
+.tline{margin:18px 0 0;font-size:19px;line-height:1.35;color:#cfc8dc}
+.tuses{margin:10px 0 0;font-size:13px;line-height:1.5;letter-spacing:.04em;color:#8d85a0}
 
 /* plain white hero */
 .page .hl::before{background:rgba(167,139,250,.6)}
@@ -488,16 +459,7 @@ footer[data-io]{padding:16px 10px 24px !important}
 .wrap{padding:0 20px}
 .herowrap{padding:12px 10px 32px !important}
 .letter{padding:32px 24px}
-.bay{padding-bottom:22px}
-.baybody{padding:22px 14px 0}
-.baytop{grid-template-columns:minmax(0,1fr)}
-.bagline{font-size:22px}
-/* phones: the clips are too narrow for names, so they show the logo only (the name is in the monitor) */
-.tl{--lw:52px;grid-template-rows:26px repeat(4,46px);margin-top:30px}
-.tstage{padding-left:4px;font-size:9px;letter-spacing:.04em}
-.tname{font-size:10px;letter-spacing:.08em}
-.clip{justify-content:center;padding:0}
-.clip .logo{width:22px;height:22px;font-size:22px}
-.cn{display:none}
+.tool{flex-basis:calc((100% - 16px)/2);padding:20px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+@media (max-width:520px){.tool{flex-basis:100%}}
