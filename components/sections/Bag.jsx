@@ -1,6 +1,17 @@
-// What's in my bag — app dock + detail card
+// What's in my bag — spotlight on the picked app + round app dock
 // Ported from the design canvas (05 — Diary × Edit Bay).
 import { Fragment } from 'react';
+
+// The four Adobe apps are drawn as letter badges in CSS (.adobe); the others are svg files.
+const ADOBE = { pr: 'Pr', ae: 'Ae', ai: 'Ai', ps: 'Ps' };
+
+function Logo({ id }) {
+  return (
+    <span className="logo">
+      {ADOBE[id] ? <span className="adobe">{ADOBE[id]}</span> : <img src={`/tools/${id}.svg`} alt="" />}
+    </span>
+  );
+}
 
 export default function Bag({ v }) {
   return (
@@ -11,25 +22,25 @@ export default function Bag({ v }) {
 <div><p className="sm kicker">{"page 02 — the stack"}</p><h2 className="fr h2">{"what's in "}<i className="nr" style={{ color: "#a78bfa" }}>{"my bag."}</i></h2></div>
 <p className="kl doodle" style={{ margin: "0", fontSize: "26px", color: "#c4b5fd", transform: "rotate(-3deg)" }}>{"(the essentials. no gatekeeping.)"}</p>
 </div>
-<div className="dockpanel rv" data-io>
-<div className="dock">
-<button className={`app ${v.bag.pr.on}`} onClick={v.bag.pr.pick} onMouseEnter={v.bag.pr.pick} aria-pressed={v.bag.pr.pressed}><span className="tip kl">{"every single day"}</span><span className="icon tn1"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M8.5 7.8 20 16"></path><path d="M8.5 16.2 20 8"></path></svg></span><span className="nm">{"Premiere Pro"}</span><span className="dot" aria-hidden="true"></span></button>
-<button className={`app ${v.bag.ae.on}`} onClick={v.bag.ae.pick} onMouseEnter={v.bag.ae.pick} aria-pressed={v.bag.ae.pressed}><span className="tip kl">{"for the fancy bits"}</span><span className="icon tn2"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"></path><circle cx="12" cy="12" r="1.6"></circle></svg></span><span className="nm">{"After Effects"}</span><span className="dot" aria-hidden="true"></span></button>
-<button className={`app ${v.bag.dv.on}`} onClick={v.bag.dv.pick} onMouseEnter={v.bag.dv.pick} aria-pressed={v.bag.dv.pressed}><span className="tip kl">{"where the mood happens"}</span><span className="icon tn3"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8.5" r="4.5"></circle><circle cx="8.3" cy="15" r="4.5"></circle><circle cx="15.7" cy="15" r="4.5"></circle></svg></span><span className="nm">{"DaVinci Resolve"}</span><span className="dot" aria-hidden="true"></span></button>
-<button className={`app ${v.bag.au.on}`} onClick={v.bag.au.pick} onMouseEnter={v.bag.au.pick} aria-pressed={v.bag.au.pressed}><span className="tip kl">{"clean audio = respect"}</span><span className="icon tn4"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h1.5M6.5 9v6M10 5v14M13.5 8v8M17 10.5v3M20.5 12H21"></path></svg></span><span className="nm">{"Audition"}</span><span className="dot" aria-hidden="true"></span></button>
-<button className={`app ${v.bag.ps.on}`} onClick={v.bag.ps.pick} onMouseEnter={v.bag.ps.pick} aria-pressed={v.bag.ps.pressed}><span className="tip kl">{"thumbnails that get clicked"}</span><span className="icon tn5"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.5"></rect><circle cx="9" cy="10" r="1.8"></circle><path d="M21 16l-5-5-9 8.5"></path></svg></span><span className="nm">{"Photoshop"}</span><span className="dot" aria-hidden="true"></span></button>
-<button className={`app ${v.bag.bl.on}`} onClick={v.bag.bl.pick} onMouseEnter={v.bag.bl.pick} aria-pressed={v.bag.bl.pressed}><span className="tip kl">{"3d, slowly but surely"}</span><span className="icon tn6"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"></path><path d="M12 12l8-4.5M12 12v9M12 12 4 7.5"></path></svg></span><span className="nm">{"Blender"}</span><span className="dot" aria-hidden="true"></span></button>
-<button className={`app ${v.bag.cc.on}`} onClick={v.bag.cc.pick} onMouseEnter={v.bag.cc.pick} aria-pressed={v.bag.cc.pressed}><span className="tip kl">{"reels on the train"}</span><span className="icon tn7"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"></rect><path d="M10.5 9.5v5l4-2.5z"></path></svg></span><span className="nm">{"CapCut"}</span><span className="dot" aria-hidden="true"></span></button>
-<button className={`app ${v.bag.fg.on}`} onClick={v.bag.fg.pick} onMouseEnter={v.bag.fg.pick} aria-pressed={v.bag.fg.pressed}><span className="tip kl">{"plan before i cut"}</span><span className="icon tn8"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20l7-7 3 3-7 7z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"></path><circle cx="11" cy="11" r="2"></circle></svg></span><span className="nm">{"Figma"}</span><span className="dot" aria-hidden="true"></span></button>
+<div className="dockpanel rv" data-io style={{ "--c": v.sel.color }}>
+<div className="bagstage" aria-hidden="true">
+<span className="orbit o1"></span>
+<span className="orbit o2"></span>
+<span className="bagbig" key={v.sel.id}><Logo id={v.sel.id} /></span>
 </div>
+<div className="baginfo">
 <div className="detail" aria-live="polite">
-<div>
-<p className="sm" style={{ margin: "0", fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", color: "#a9a1b8" }}>{v.sel.idx}{" / 08 — in the bag"}</p>
-<p className="fr" style={{ margin: "10px 0 0", fontSize: "clamp(40px, 4.6vw, 64px)", lineHeight: "1", fontStyle: "italic" }}>{v.sel.name}</p>
+<div className="bagswap" key={v.sel.id}>
+<p className="sm" style={{ margin: "0", fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", color: "#a9a1b8" }}>{v.sel.idx}{" / "}{v.sel.total}{" — in the bag"}</p>
+<p className="nr bagname">{v.sel.name}</p>
+<p className="kl" style={{ margin: "18px 0 0", fontSize: "24px", lineHeight: "1.4", color: "#d6d0e2" }}>{v.sel.line}</p>
+<div className="chips">{(v.sel.uses || []).map((u, $index) => (<Fragment key={$index}><span className="uchip">{u.label}</span></Fragment>))}</div>
 </div>
-<div>
-<p className="kl" style={{ margin: "0", fontSize: "24px", lineHeight: "1.4", color: "#d6d0e2" }}>{v.sel.line}</p>
-<div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "16px" }}>{(v.sel.uses || []).map((u, $index) => (<Fragment key={$index}><span className="uchip">{u.label}</span></Fragment>))}</div>
+</div>
+<div className="dock">
+{v.tools.map((t) => (
+<button key={t.id} className={`app ${t.on}`} style={{ "--c": t.color }} onClick={t.pick} onMouseEnter={t.pick} aria-pressed={t.pressed} aria-label={t.name}><span className="tip kl">{t.tip}</span><span className="icon"><Logo id={t.id} /></span></button>
+))}
 </div>
 </div>
 </div>

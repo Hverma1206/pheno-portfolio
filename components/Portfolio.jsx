@@ -56,16 +56,29 @@ export default function Portfolio({ handNotes = true, motion = true }) {
 
     // What's in my bag
     const picked = s.tool || 'pr';
-    const bag = {};
     let sel = null;
-    TOOLS.forEach((d, i) => {
+    const tools = TOOLS.map((d, i) => {
       const on = picked === d[0];
-      bag[d[0]] = {
+      if (on) {
+        sel = {
+          id: d[0],
+          idx: String(i + 1).padStart(2, '0'),
+          total: String(TOOLS.length).padStart(2, '0'),
+          name: d[1],
+          line: d[2],
+          color: d[5],
+          uses: d[3].map((u) => ({ label: u })),
+        };
+      }
+      return {
+        id: d[0],
+        name: d[1],
+        tip: d[4],
+        color: d[5],
         on: on ? 'on' : '',
         pressed: on ? 'true' : 'false',
         pick: () => setS((prev) => (prev.tool === d[0] ? prev : { ...prev, tool: d[0] })),
       };
-      if (on) sel = { idx: String(i + 1).padStart(2, '0'), name: d[1], line: d[2], uses: d[3].map((u) => ({ label: u })) };
     });
 
     // Everything, in motion
@@ -109,7 +122,7 @@ export default function Portfolio({ handNotes = true, motion = true }) {
       pausedCls: playing ? '' : 'paused',
       playLabel: playing ? 'pause showreel' : 'play showreel',
       togglePlay: () => setS((prev) => ({ ...prev, paused: prev.paused !== true })),
-      bag,
+      tools,
       sel,
       items,
     };

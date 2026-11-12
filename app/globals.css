@@ -94,27 +94,39 @@ html{scroll-behavior:smooth}
 .spin{animation:spin 14s linear infinite}
 .paused *{animation-play-state:paused !important}
 
-/* bag: app dock */
-.dockpanel{position:relative;padding:72px 40px 0;border-radius:36px;background:#15111c;border:1px solid #2a2236}
-.dock{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:28px 22px;padding-bottom:30px;border-bottom:1px dashed #2f2740}
+/* bag: spotlight + round app dock. --c is the picked app's colour, set inline by Bag.jsx */
+@property --c{syntax:'<color>';inherits:true;initial-value:#a78bfa}
+.dockpanel{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px 56px;align-items:center;padding:52px 60px;border-radius:36px;border:1px solid #2a2236;background:radial-gradient(55% 80% at 21% 50%,color-mix(in srgb,var(--c) 24%,transparent),transparent 72%),#15111c;transition:--c .5s}
+.bagstage{position:relative;display:flex;align-items:center;justify-content:center;width:340px;max-width:100%;aspect-ratio:1;margin:0 auto}
+.orbit{position:absolute;border-radius:50%}
+.o1{inset:0;border:1.5px dashed color-mix(in srgb,var(--c) 50%,transparent);animation:spin 40s linear infinite}
+.o1::after{content:'';position:absolute;top:-6px;left:50%;width:11px;height:11px;margin-left:-6px;border-radius:50%;background:var(--c);box-shadow:0 0 16px var(--c)}
+.o2{inset:13%;border:1px solid color-mix(in srgb,var(--c) 22%,transparent)}
+.bagbig{position:relative;display:flex;align-items:center;justify-content:center;width:56%;aspect-ratio:1;border-radius:50%;container-type:inline-size;background:#1f1929;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 30px 70px -18px color-mix(in srgb,var(--c) 75%,transparent);animation:bagpop .45s cubic-bezier(.2,.9,.2,1.3) both}
+@keyframes bagpop{from{opacity:0;transform:scale(.6) rotate(-14deg)}}
+/* logos size off their circle (cqw), so the same markup works in the dock and the spotlight */
+.logo{display:flex;width:54cqw;height:54cqw;font-size:54cqw}
+.logo img{width:100%;height:100%;object-fit:contain}
+.adobe{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:100%;height:100%;border:.14em solid var(--c);border-radius:.36em;background:color-mix(in srgb,var(--c) 12%,#0c0912);color:var(--c);font:700 .46em/1 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.02em}
+.baginfo{min-width:0}
+.detail{display:flex;flex-direction:column;justify-content:center;min-height:250px}
+.bagswap{animation:bagswap .4s cubic-bezier(.16,1,.3,1) both}
+@keyframes bagswap{from{opacity:0;translate:0 14px}}
+.bagname{margin:12px 0 0;font-size:clamp(44px,5vw,72px);font-style:italic;font-weight:600;line-height:1;letter-spacing:-.01em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.uchip{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border:1px solid color-mix(in srgb,var(--c) 40%,#3a3048);border-radius:999px;font:400 13px var(--font-excalifont),cursive;color:#d6d0e2}
+.dock{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;max-width:580px;margin-top:30px;padding-top:30px;border-top:1px dashed #2f2740}
 @keyframes appin{from{opacity:0;transform:translateY(40px) scale(.7)}to{opacity:1;transform:none}}
-.app{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0;border:0;background:transparent;color:#efeaf6;cursor:pointer;animation:appin .7s cubic-bezier(.2,.9,.2,1.2) both}
-.app:nth-child(2){animation-delay:.06s}.app:nth-child(3){animation-delay:.12s}.app:nth-child(4){animation-delay:.18s}.app:nth-child(5){animation-delay:.24s}.app:nth-child(6){animation-delay:.3s}.app:nth-child(7){animation-delay:.36s}.app:nth-child(8){animation-delay:.42s}
-.app .icon{display:flex;align-items:center;justify-content:center;width:108px;height:108px;border-radius:28px;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -3px 0 rgba(0,0,0,.25),0 18px 30px -14px rgba(0,0,0,.85);transition:transform .35s cubic-bezier(.2,.8,.2,1.25),box-shadow .35s}
-.app .icon svg{width:50px;height:50px}
-.app:hover .icon,.app:focus-visible .icon{transform:translateY(-18px) scale(1.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -3px 0 rgba(0,0,0,.25),0 30px 40px -16px rgba(124,58,237,.65)}
-.app:has(+ .app:hover) .icon,.app:hover + .app .icon{transform:translateY(-8px) scale(1.08)}
-.app .tip{position:absolute;bottom:calc(100% + 30px);left:50%;transform:translate(-50%,8px);padding:6px 12px;border-radius:8px;background:#efeaf6;color:#15111c;font-size:17px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:3}
-.app:hover .tip{opacity:1;transform:translate(-50%,0)}
-.app .nm{font:700 11px var(--font-excalifont),cursive;letter-spacing:.08em;text-transform:uppercase;color:#a9a1b8;transition:color .3s}
-.app.on .nm{color:#efeaf6}
-.app .dot{width:6px;height:6px;border-radius:50%;background:transparent;transition:background .3s}
-.app.on .dot{background:#a78bfa;box-shadow:0 0 10px #a78bfa}
-.app.on .icon{outline:2px solid #a78bfa;outline-offset:6px}
-.tn1{background:#2a1650;color:#d8c7ff}.tn2{background:#1d1236;color:#a78bfa}.tn3{background:#f1edf7;color:#3b1f6a}.tn4{background:#3b1f6a;color:#ede9fe}
-.tn5{background:#120d1a;color:#c4b5fd;border:1px solid #3a3048}.tn6{background:#7c3aed;color:#fff}.tn7{background:#ede9fe;color:#1b1622}.tn8{background:#241a38;color:#e9d5ff}
-.detail{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px 48px;align-items:center;padding:34px 8px 40px}
-.uchip{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border:1px solid #3a3048;border-radius:999px;font:400 13px var(--font-excalifont),cursive;color:#d6d0e2}
+.app{position:relative;display:block;width:100%;padding:0;border:0;background:transparent;cursor:pointer;animation:appin .6s cubic-bezier(.2,.9,.2,1.2) both}
+.app:nth-child(2){animation-delay:.06s}.app:nth-child(3){animation-delay:.12s}.app:nth-child(4){animation-delay:.18s}.app:nth-child(5){animation-delay:.24s}.app:nth-child(6){animation-delay:.3s}.app:nth-child(7){animation-delay:.36s}
+.app .icon{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1;border-radius:50%;container-type:inline-size;background:#221b2d;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 14px 24px -14px rgba(0,0,0,.9);transition:transform .35s cubic-bezier(.2,.8,.2,1.25),box-shadow .35s,background .35s}
+.app:hover .icon,.app:focus-visible .icon{transform:translateY(-10px) scale(1.12)}
+.app:has(+ .app:hover) .icon,.app:hover + .app .icon{transform:translateY(-4px) scale(1.04)}
+.app.on .icon{background:color-mix(in srgb,var(--c) 16%,#221b2d);box-shadow:0 0 0 2px var(--c),0 16px 34px -12px color-mix(in srgb,var(--c) 80%,transparent)}
+.app:focus-visible{outline:none}
+.app:focus-visible .icon{outline:2px solid #efeaf6;outline-offset:5px}
+.app .tip{position:absolute;bottom:calc(100% + 18px);left:50%;transform:translate(-50%,8px);padding:6px 12px;border-radius:8px;background:#efeaf6;color:#15111c;font-size:17px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:3}
+.app:hover .tip,.app:focus-visible .tip{opacity:1;transform:translate(-50%,0)}
 
 /* plain white hero */
 .page .hl::before{background:rgba(167,139,250,.6)}
@@ -309,8 +321,6 @@ html{scroll-behavior:smooth}
 .h2 i{display:inline-block;animation:inkup 1s .35s cubic-bezier(.2,.8,.2,1) both}
 .rv .doodle{animation:proofIn 1s .6s ease-out both}
 /* bag: detail card follows the dock, then each client name gets circled one by one */
-.detail>*{animation:rise .8s .55s cubic-bezier(.16,1,.3,1) both}
-.detail>*+*{animation-delay:.7s}
 .ppl{--pd:.25s;animation:rise .6s var(--pd) cubic-bezier(.16,1,.3,1) both}
 .ppl:nth-child(3){--pd:.4s}.ppl:nth-child(4){--pd:.55s}.ppl:nth-child(5){--pd:.7s}
 .ppl svg path{stroke-dasharray:420;animation:pline .9s calc(var(--pd) + .2s) ease-in-out both}
@@ -471,8 +481,11 @@ footer[data-io]{padding:16px 10px 24px !important}
 .wrap{padding:0 20px}
 .herowrap{padding:12px 10px 32px !important}
 .letter{padding:32px 24px}
-.detail{grid-template-columns:minmax(0,1fr) !important}
-.dockpanel{padding:56px 16px 0}
-.app .icon{width:80px;height:80px;border-radius:22px}
+.dockpanel{grid-template-columns:minmax(0,1fr);padding:36px 20px 32px;background:radial-gradient(95% 42% at 50% 20%,color-mix(in srgb,var(--c) 24%,transparent),transparent 72%),#15111c}
+.bagstage{width:230px}
+.detail{min-height:0;align-items:center;text-align:center}
+.chips{justify-content:center}
+.dock{display:flex;flex-wrap:wrap;justify-content:center;max-width:none}
+.app{width:62px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
