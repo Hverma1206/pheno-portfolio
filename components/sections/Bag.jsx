@@ -1,9 +1,11 @@
-// What's in my bag — spotlight on the picked app + round app dock
-// Ported from the design canvas (05 — Diary × Edit Bay).
+// What's in my bag — an edit bay: every app is a clip on the timeline, the picked one plays in the monitor.
 import { Fragment } from 'react';
 
 // The four Adobe apps are drawn as letter badges in CSS (.adobe); the others are svg files.
 const ADOBE = { pr: 'Pr', ae: 'Ae', ai: 'Ai', ps: 'Ps' };
+// Timeline tracks, top to bottom, and the ruler's stages (6 of the 24 columns each). Clip positions live in lib/data.js.
+const TRACKS = ['3d', 'motion', 'gfx', 'cut'];
+const STAGES = ['brief', 'rough cut', 'motion + 3d', 'export'];
 
 function Logo({ id }) {
   return (
@@ -22,25 +24,36 @@ export default function Bag({ v }) {
 <div><p className="sm kicker">{"page 02 — the stack"}</p><h2 className="fr h2">{"what's in "}<i className="nr" style={{ color: "#a78bfa" }}>{"my bag."}</i></h2></div>
 <p className="kl doodle" style={{ margin: "0", fontSize: "26px", color: "#c4b5fd", transform: "rotate(-3deg)" }}>{"(the essentials. no gatekeeping.)"}</p>
 </div>
-<div className="dockpanel rv" data-io style={{ "--c": v.sel.color }}>
-<div className="bagstage" aria-hidden="true">
-<span className="orbit o1"></span>
-<span className="orbit o2"></span>
-<span className="bagbig" key={v.sel.id}><Logo id={v.sel.id} /></span>
+<div className="bay rv" data-io style={{ "--c": v.sel.color }}>
+<div className="baybar sm"><span className="baydots" aria-hidden="true"><i></i><i></i><i></i></span><span>{"my_bag_final_FINAL_v"}{v.tools.length}{".prproj"}</span></div>
+<div className="baybody">
+<div className="baytop">
+<div className="mon">
+<span className="pcorner" aria-hidden="true" style={{ left: "14px", top: "14px", borderWidth: "2px 0 0 2px" }}></span>
+<span className="pcorner" aria-hidden="true" style={{ right: "14px", top: "14px", borderWidth: "2px 2px 0 0" }}></span>
+<span className="pcorner" aria-hidden="true" style={{ left: "14px", bottom: "14px", borderWidth: "0 0 2px 2px" }}></span>
+<span className="pcorner" aria-hidden="true" style={{ right: "14px", bottom: "14px", borderWidth: "0 2px 2px 0" }}></span>
+<span className="montag sm" aria-hidden="true">{"program"}</span>
+<span className="bagswap" key={v.sel.id}><Logo id={v.sel.id} /></span>
 </div>
-<div className="baginfo">
-<div className="detail" aria-live="polite">
+<div aria-live="polite">
 <div className="bagswap" key={v.sel.id}>
-<p className="sm" style={{ margin: "0", fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", color: "#a9a1b8" }}>{v.sel.idx}{" / "}{v.sel.total}{" — in the bag"}</p>
-<p className="nr bagname">{v.sel.name}</p>
-<p className="kl" style={{ margin: "18px 0 0", fontSize: "24px", lineHeight: "1.4", color: "#d6d0e2" }}>{v.sel.line}</p>
+<p className="sm kicker" style={{ margin: "0" }}>{v.sel.idx}{" / "}{v.sel.total}{" — in the bag"}</p>
+<p className="nr bagname"><span className="bhl">{v.sel.name}</span></p>
+<p className="kl bagline">{v.sel.line}</p>
 <div className="chips">{(v.sel.uses || []).map((u, $index) => (<Fragment key={$index}><span className="uchip">{u.label}</span></Fragment>))}</div>
 </div>
 </div>
-<div className="dock">
-{v.tools.map((t) => (
-<button key={t.id} className={`app ${t.on}`} style={{ "--c": t.color }} onClick={t.pick} onMouseEnter={t.pick} aria-pressed={t.pressed} aria-label={t.name}><span className="tip kl">{t.tip}</span><span className="icon"><Logo id={t.id} /></span></button>
+</div>
+<div className="tl" style={{ "--ph": v.sel.at[1] }}>
+{STAGES.map((s, i) => (<span key={s} className="tstage sm" style={{ gridColumn: `${2 + i * 6} / span 6` }}>{s}</span>))}
+{TRACKS.map((t, i) => (
+<Fragment key={t}><span className="tname sm" style={{ gridRow: i + 2 }}>{t}</span><span className="tlane" aria-hidden="true" style={{ gridRow: i + 2 }}></span></Fragment>
 ))}
+{v.tools.map((t) => (
+<button key={t.id} className={`clip kl ${t.on}`} style={{ "--c": t.color, "--d": `${t.at[1] * 0.03}s`, gridRow: t.at[0] + 1, gridColumn: `${t.at[1] + 1} / span ${t.at[2]}` }} onClick={t.pick} onMouseEnter={t.pick} aria-pressed={t.pressed} aria-label={t.name}><Logo id={t.id} /><span className="cn">{t.name}</span></button>
+))}
+<span className="phead" aria-hidden="true"></span>
 </div>
 </div>
 </div>
