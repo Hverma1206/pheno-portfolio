@@ -18,7 +18,7 @@ export default function Contact({ v }) {
 <li className="wrow"><svg className="wbox" aria-hidden="true" viewBox="0 0 36 36" fill="none" stroke="#5b2fe0" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 7.5c8-.8 16-1 24-.4.6 7.6.4 15.4-.3 22.8-7.8.6-15.6.7-23.4.2-.6-7.4-.7-15-.3-22.6z"></path><path className="tk" d="M10 18l6 6.5L33 4"></path></svg><span>{"Reels & shorts"}</span></li>
 </ul>
 <a href="#socials" className="wbtn kl">{"let's chat!"}</a>
-<p className="mono" style={{ margin: "40px 0 0", fontSize: "15px", color: "#5d5868" }}>{"or write to "}<a href="mailto:you@example.com" style={{ color: "#5b2fe0", textUnderlineOffset: "4px" }}>{"[you@yourmail.com]"}</a></p>
+<p className="mono" style={{ margin: "40px 0 0", fontSize: "19px", color: "#5d5868" }}>{"or write to "}<a href="mailto:you@example.com" style={{ color: "#5b2fe0", textUnderlineOffset: "4px" }}>{"[you@yourmail.com]"}</a></p>
 </div>
 <div className="wframe" data-io>
 <svg className="wframe-line" aria-hidden="true" viewBox="0 0 600 560" preserveAspectRatio="none" fill="none" stroke="#6a3cf5" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"><path pathLength="1" d="M40 8 C 200 2, 420 6, 560 12 C 590 14, 594 40, 594 70 C 596 220, 592 380, 590 500 C 590 534, 570 548, 540 550 C 380 556, 200 552, 50 548 C 20 548, 6 530, 6 500 C 4 360, 8 200, 10 60 C 10 26, 22 10, 50 8"></path></svg>

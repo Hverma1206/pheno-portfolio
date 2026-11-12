@@ -41,7 +41,7 @@ export default function Featured({ v }) {
 <section id="proud" data-io="proud" style={{ position: "relative", padding: "130px 0 140px" }}>
 <div className="wrap">
 <div className="rv" data-io style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: "20px", marginBottom: "64px" }}>
-<div><h2 className="fr h2">{"the one i'd show "}<font color="#a78bfa"><i>{"first"}</i></font></h2></div>
+<div><h2 className="fr h2">{"the one i'd show "}<font color="#a78bfa"><i className="nr">{"first"}</i></font></h2></div>
 <p className="kl doodle" style={{ margin: "0", fontSize: "26px", color: "#c4b5fd", transform: "rotate(-6deg)" }}>{"headphones on for this one"}</p>
 </div>
 <div className="tilt" data-io>

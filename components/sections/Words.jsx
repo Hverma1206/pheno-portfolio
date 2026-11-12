@@ -7,7 +7,7 @@ export default function Words({ v }) {
 <div className="wrap">
 <div className="rv" data-io style={{ marginBottom: "64px" }}>
 <p className="mono label">{"04 — words"}</p>
-<h2 className="serif h2">{"what they said "}<i style={{ color: "#a78bfa" }}>{"(unprompted)."}</i></h2>
+<h2 className="serif h2">{"what they said "}<i className="nr" style={{ color: "#a78bfa" }}>{"(unprompted)."}</i></h2>
 </div>
 <div className="tgrid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "24px", alignItems: "start" }}>
 <figure className="quote q1" data-io style={{ margin: "0" }}>

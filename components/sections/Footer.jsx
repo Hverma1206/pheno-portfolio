@@ -21,7 +21,7 @@ export default function Footer() {
 <div className="ftop">
 <div>
 <p className="kl fname f2" aria-label="Pheno"><span className="fch" style={{ "--i": "0" }}>{"P"}</span><span className="fch" style={{ "--i": "1" }}>{"h"}</span><span className="fch" style={{ "--i": "2" }}>{"e"}</span><span className="fch" style={{ "--i": "3" }}>{"n"}</span><span className="fch" style={{ "--i": "4" }}>{"o"}</span><svg className="fstar" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round"><path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3"></path></svg><svg className="fline" aria-hidden="true" viewBox="0 0 260 34" preserveAspectRatio="none" fill="none" stroke="#5b2fe0" strokeWidth="3" strokeLinecap="round"><path d="M6 22 C 50 14, 110 10, 160 13 C 176 14, 182 24, 172 27 C 160 30, 154 20, 168 16 C 196 9, 226 10, 254 8"></path></svg></p>
-<p className="fr" style={{ margin: "22px 0 0", fontSize: "20px", fontStyle: "italic", color: "#5b2fe0" }}>{"Shreyansh, video editor & motion designer"}</p>
+<p className="fr nr" style={{ margin: "22px 0 0", fontSize: "20px", fontStyle: "italic", fontWeight: "700", color: "#5b2fe0" }}>{"Shreyansh, video editor & motion designer"}</p>
 </div>
 <p className="sticker fwrap"><span className="fwrap-s">{"that's a"}</span><span className="fwrap-b f2">{"wrap!"}</span></p>
 </div>

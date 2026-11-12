@@ -11,7 +11,7 @@ export default function Work({ v }) {
 <div className="wrap">
 <div className="rv" data-io style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: "28px", marginBottom: "48px" }}>
 <div>
-<h2 className="serif h2">{"everything, "}<i style={{ color: "#a78bfa" }}>{"in motion."}</i></h2>
+<h2 className="serif h2">{"everything, "}<i className="nr" style={{ color: "#a78bfa" }}>{"in motion."}</i></h2>
 </div>
 </div>
 <div className="wgrid" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: "20px" }}>

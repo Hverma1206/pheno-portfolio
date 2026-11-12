@@ -12,6 +12,16 @@ const excalifont = localFont({
   variable: '--font-excalifont',
 });
 
+// Newsreader (SIL OFL 1.1), for a few accent phrases (.nr in globals.css).
+const newsreader = localFont({
+  src: [
+    { path: '../fonts/Newsreader/Newsreader-VariableFont_opsz,wght.ttf', weight: '200 800', style: 'normal' },
+    { path: '../fonts/Newsreader/Newsreader-Italic-VariableFont_opsz,wght.ttf', weight: '200 800', style: 'italic' },
+  ],
+  display: 'swap',
+  variable: '--font-newsreader',
+});
+
 // Secondary face, only for the name and the one highlighted word per line (.f2 in globals.css).
 const gloria = Gloria_Hallelujah({
   weight: '400',
@@ -31,7 +41,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${excalifont.variable} ${gloria.variable}`}>
+    <html lang="en" className={`${excalifont.variable} ${gloria.variable} ${newsreader.variable}`}>
       <body>{children}</body>
     </html>
   );

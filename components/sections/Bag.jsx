@@ -8,7 +8,7 @@ export default function Bag({ v }) {
 <section id="bag" data-io="bag" style={{ position: "relative", padding: "130px 0 120px" }}>
 <div className="wrap">
 <div className="rv" data-io style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: "20px", marginBottom: "56px" }}>
-<div><p className="sm kicker">{"page 02 — the stack"}</p><h2 className="fr h2">{"what's in "}<i style={{ color: "#a78bfa" }}>{"my bag."}</i></h2></div>
+<div><p className="sm kicker">{"page 02 — the stack"}</p><h2 className="fr h2">{"what's in "}<i className="nr" style={{ color: "#a78bfa" }}>{"my bag."}</i></h2></div>
 <p className="kl doodle" style={{ margin: "0", fontSize: "26px", color: "#c4b5fd", transform: "rotate(-3deg)" }}>{"(the essentials. no gatekeeping.)"}</p>
 </div>
 <div className="dockpanel rv" data-io>
