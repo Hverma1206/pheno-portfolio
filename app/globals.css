@@ -408,7 +408,7 @@ a.fsoc:hover,a.fsoc:focus-visible{color:#15111c;transform:translate(-3px,-4px) r
 a.fsoc:hover .fic{transform:rotate(-10deg) scale(1.1)}
 .fs-instagram .fic{background:#7c3aed;color:#fff}.fs-youtube .fic{background:#3b1f6a;color:#f0abfc}.fs-x .fic{background:#15111c;color:#ede9fe}.fs-discord .fic{background:#1e1b4b;color:#a5b4fc}.fs-whatsapp .fic{background:#4c1d95;color:#ddd6fe}.fs-email .fic{background:#ede9fe;color:#3b1f6a}
 .fnm{margin-top:14px;font-size:24px;line-height:1}
-.fhd{font-size:13px;color:#5d5868}
+.fhd{max-width:100%;font-size:13px;color:#5d5868;overflow-wrap:anywhere}
 .farr{position:absolute;right:16px;top:12px;font-size:22px;color:#5b2fe0;transition:transform .3s}
 a.fsoc:hover .farr{transform:translate(3px,-3px)}
 /* no link yet: dashed outline, greyed icon, nothing to click */
@@ -496,7 +496,24 @@ footer[data-io]{padding:16px 10px 24px !important}
 .tgrid,.cgrid{grid-template-columns:minmax(0,1fr) !important}
 .tgrid>*{margin-top:0 !important;max-width:520px;width:100%;justify-self:center}
 .q2,.q3{margin-top:0}
-.pols{display:none}
+/* reels drop below the intro as two polaroids side by side instead of the floating stack */
+.pols{position:relative !important;top:auto !important;right:auto !important;width:auto !important;height:auto !important;display:flex;gap:14px;margin-top:40px;transform:none}
+.pols>.doodle{display:none}
+.pxA,.pxC{position:relative !important;top:auto !important;right:auto !important;animation:none;flex:1 1 0;min-width:0}
+.pxA>div,.pxC>div{transform:none !important}
+.pols .pol{padding:7px 7px 0}
+.pols .reelph{width:100% !important;height:auto !important;aspect-ratio:16/9}
+.pols .cap{padding:7px 2px 9px;font-size:13px}
+.pols .tape{width:56px;height:18px;top:-9px;margin-left:-28px}
+.pols .live{right:5px;top:5px;padding:2px 6px;font-size:7px}
+/* hero hugs its content; sections get phone-sized breathing room instead of desktop gaps */
+.herowrap .page{min-height:0 !important}
+.herowrap .wrap{padding-top:44px !important;padding-bottom:56px !important}
+section[data-io]:not(.herowrap){padding-top:64px !important;padding-bottom:64px !important}
+/* client names: label on its own line, names in a 2x2 grid */
+.pplrow{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px !important;margin-top:40px !important}
+.pplrow>span{grid-column:1/-1}
+.pplrow .ppl{justify-content:center;padding:0 8px;font-size:16px;white-space:nowrap}
 .cols2,.lgrid{grid-template-columns:minmax(0,1fr) !important}
 .book{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
 .notes4{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
@@ -511,3 +528,50 @@ footer[data-io]{padding:16px 10px 24px !important}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 @media (max-width:520px){.tpol{flex-basis:calc((100% - 24px)/3)}}
+/* phone: testimonials, "what I do" card and footer sized for a narrow screen */
+@media (max-width:900px){
+/* testimonials as a scrapbook column: narrower tilted cards that alternate left/right and overlap a little, all inside the screen */
+.tgrid{gap:0 !important;padding:8px 0 0}
+.tgrid>*{width:88% !important;max-width:420px !important}
+.tgrid>:nth-child(odd){justify-self:start !important;--tr:-2.5deg}
+.tgrid>:nth-child(even){justify-self:end !important;--tr:2.5deg}
+.tgrid>*+*{margin-top:-10px !important}
+.tgrid>.quote:hover{z-index:3}
+.tgrid .shot img{max-height:320px;object-fit:contain}
+.tgrid blockquote{font-size:17.5px !important}
+.tgrid blockquote[style*="27px"]{font-size:23px !important} /* short quotes (desktop 27px) stay big enough to fill their card */
+.quote{padding:26px 22px 22px;border-radius:16px}
+.quote blockquote{font-size:19px !important;line-height:1.35 !important}
+.quote>span.serif{right:16px !important;top:2px !important;font-size:76px !important}
+.quote figcaption{margin-top:18px !important}
+.quote.shot{padding:9px 9px 0}
+.shot figcaption{padding:10px 4px 12px;font-size:17px}
+.wcard{padding:34px 20px 28px;border-radius:26px}
+.wgrid2{gap:36px !important}
+.wcard h2{font-size:44px !important}
+.wrow{gap:14px;min-height:62px;font-size:23px}
+.wbox{width:32px;height:32px}
+.wbtn{min-height:62px;margin-top:30px;font-size:30px;border-width:3px}
+.wframe{min-height:0;padding:34px 20px 26px}
+.wpol{width:min(230px,72%);padding:12px 12px 4px}
+.wpol p{padding:10px 0 4px !important;font-size:26px !important}
+.wtiles{gap:8px;margin-top:26px}
+.wtile{flex-basis:44px}
+.fcard{padding:32px 20px 18px;border-radius:24px}
+.ftop{flex-wrap:nowrap;align-items:flex-start;gap:12px}
+.ftop>div{min-width:0}
+.fname{font-size:54px}
+.fname .fline{bottom:-12px;height:14px}
+.fcard .fr{margin-top:16px !important;font-size:15px !important}
+.fwrap{flex:none;width:82px;height:82px;margin:4px 0 0}
+.fwrap-s{font-size:8px}
+.fwrap-b{font-size:22px}
+.fsocwrap{margin-top:30px;padding-top:20px}
+.fhead{margin-bottom:18px;font-size:22px}
+.fsocs{gap:12px}
+.fsoc{min-height:112px;padding:12px;border-radius:14px;box-shadow:3px 3px 0 #15111c}
+.fic{width:40px;height:40px;border-radius:11px}
+.fic svg{width:20px;height:20px}
+.fnm{margin-top:10px;font-size:19px}
+.fhd{font-size:11px}
+}

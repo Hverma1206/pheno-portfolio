@@ -33,7 +33,7 @@ export default function Footer() {
     <>
 <span className="fic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{ICONS[s.name] || ICONS.link}</svg></span>
 <span className="fnm">{s.name}</span>
-<span className="fhd mono">{s.url ? s.handle || "say hi" : "link soon"}</span>
+<span className="fhd mono">{s.url ? s.handle?.replace(/(.)@/, "$1\u200b@") || "say hi" : "link soon"}</span>
 {s.url ? <span className="farr" aria-hidden="true">{"↗"}</span> : null}
     </>
   );
@@ -49,7 +49,7 @@ export default function Footer() {
 </div>
 <span className="fplay" aria-hidden="true"></span>
 <div className="fbase mono">
-<span>{"© 2026 Pheno · end of reel"}</span>
+<span>{"© 2026 Pheno "}</span>
 <a href="#top" className="fup">{"back to top "}<span aria-hidden="true">{"↑"}</span></a>
 </div>
 </div>
