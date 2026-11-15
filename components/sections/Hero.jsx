@@ -36,7 +36,7 @@ export default function Hero({ v }) {
 <div style={{ transform: v.pA, transition: "transform .7s cubic-bezier(.2,.8,.2,1)" }}>
 <div className="pol pin" style={{ "--r": "-7deg", "--d": "1.6s", position: "relative" }}>
 <span className="tape" aria-hidden="true"></span>
-<div className="ph ph1 reelph" style={{ width: "210px", height: "300px" }}><span className="clip ph1" style={{ animationDelay: "0s" }}><span className="ctag">{"clip 01"}</span></span><span className="clip ph5" style={{ animationDelay: "-3s" }}><span className="ctag">{"clip 02"}</span></span><span className="clip ph2" style={{ animationDelay: "-6s" }}><span className="ctag">{"clip 03"}</span></span><span className="live sm"><i></i>{"playing"}</span><span className="rbar"><i style={{ animationDelay: "0s" }}></i></span></div>
+<div className="ph ph1 reelph" style={{ width: "210px", height: "300px" }}><video className="hvid" src="/hero/hero-1.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" /><span className="live sm"><i></i>{"playing"}</span></div>
 <span className="cap kl">{"reel 01 — [client]"}</span>
 </div>
 </div>
@@ -54,8 +54,8 @@ export default function Hero({ v }) {
 <div style={{ transform: v.pC, transition: "transform .8s cubic-bezier(.2,.8,.2,1)" }}>
 <div className="pol pin" style={{ "--r": "-3deg", "--d": "2.2s", position: "relative" }}>
 <span className="tape" aria-hidden="true" style={{ transform: "rotate(-8deg)" }}></span>
-<div className="ph ph6 reelph" style={{ width: "240px", height: "170px" }}><span className="clip ph6" style={{ animationDelay: "-2s" }}><span className="ctag">{"clip 01"}</span></span><span className="clip ph1" style={{ animationDelay: "-5s" }}><span className="ctag">{"clip 02"}</span></span><span className="clip ph4" style={{ animationDelay: "-8s" }}><span className="ctag">{"clip 03"}</span></span><span className="live sm"><i></i>{"playing"}</span><span className="rbar"><i style={{ animationDelay: "-2s" }}></i></span></div>
-<span className="cap kl">{"youtube 01 ✓ approved"}</span>
+<div className="ph ph6 reelph" style={{ width: "240px", height: "170px" }}><video className="hvid" src="/hero/hero-2.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" /><span className="live sm"><i></i>{"playing"}</span></div>
+<span className="cap kl">{"launch trailer ✓ approved"}</span>
 </div>
 </div>
 </div>

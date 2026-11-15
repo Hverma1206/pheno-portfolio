@@ -1,7 +1,7 @@
 // What's in my bag — one row of app logos with their names. Nothing else.
 
 // The four Adobe apps are drawn as letter badges in CSS (.adobe); the others are svg files.
-const ADOBE = { pr: 'Pr', ae: 'Ae', ai: 'Ai', ps: 'Ps' };
+const ADOBE = { pr: 'Pr', ae: 'Ae', ps: 'Ps' };
 
 function Logo({ id }) {
   return (
