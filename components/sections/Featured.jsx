@@ -58,7 +58,7 @@ export default function Featured({ v }) {
 <div><h2 className="fr h2">{"the one i'd show "}<font color="#a78bfa"><i className="nr">{"first"}</i></font></h2></div>
 <p className="kl doodle" style={{ margin: "0", fontSize: "26px", color: "#c4b5fd", transform: "rotate(-6deg)" }}>{"headphones on for this one"}</p>
 </div>
-<div className="tilt" data-io>
+<div id="showreel" className="tilt" data-io>
 <div className="frame">
 <span className="washi" aria-hidden="true" style={{ left: "-30px", top: "10px", transform: "rotate(-38deg)" }}></span>
 <span className="washi" aria-hidden="true" style={{ right: "-30px", top: "10px", transform: "rotate(38deg)" }}></span>

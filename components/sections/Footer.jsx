@@ -26,7 +26,7 @@ export default function Footer() {
 <p className="sticker fwrap"><span className="fwrap-s">{"that's a"}</span><span className="fwrap-b f2">{"wrap!"}</span></p>
 </div>
 <div id="socials" className="fsocwrap">
-<p className="fhead kl">{"find me here"}<svg className="fharrow" aria-hidden="true" viewBox="0 0 60 40" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 8 C 22 4, 40 10, 46 32"></path><path d="M36 27 L 47 34 L 53 22"></path></svg></p>
+<p className="fhead kl">{"find me here"}<svg className="fharrow" aria-hidden="true" viewBox="0 0 60 44" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 8 C 22 4, 42 10, 46 36"></path><path d="M38 29 L 46 38 L 53 30"></path></svg></p>
 <nav className="fsocs" aria-label="socials">
 {SOCIALS.map((s, i) => {
   const inner = (

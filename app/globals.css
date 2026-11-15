@@ -80,6 +80,7 @@ html{scroll-behavior:smooth}
 .washi{position:absolute;width:150px;height:36px;background:repeating-linear-gradient(-45deg,rgba(139,92,246,.7) 0 10px,rgba(196,181,253,.55) 10px 20px);box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:3}
 .screen{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0a0710}
 /* iframe 2x taller: video stays full-width, YouTube title/logo/"more videos" overlays land in the cropped bands */
+#showreel{scroll-margin-top:100px} /* land on the frame, clear of the sticky nav */
 .showreel-player{position:absolute;left:0;top:-50%;width:100%;height:200%;border:0;pointer-events:none}
 .showreel-caption{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;padding:16px 6px 20px;color:#1b1622}
 .showreel-caption p{margin:0;font-size:26px}
@@ -395,7 +396,7 @@ html{scroll-behavior:smooth}
 /* hand note pointing down at the socials */
 .fsocwrap{margin-top:44px;padding-top:24px;border-top:2px dashed #b9adf0}
 .fhead{display:inline-flex;align-items:flex-end;gap:6px;margin:0 0 24px;font-size:26px;color:#5b2fe0;rotate:-2deg;animation:proofIn .9s .3s ease-out both}
-.fharrow{width:52px;height:36px;margin-bottom:-16px}
+.fharrow{width:52px;height:40px;margin-bottom:-18px;overflow:visible}
 .fharrow path{stroke-dasharray:300;animation:ddLine .6s 1s ease-out both}
 /* social cards: hand-cut stickers, slightly crooked, straighten and lift on hover */
 .fsocs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}

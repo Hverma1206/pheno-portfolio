@@ -11,6 +11,7 @@ import Work from './sections/Work';
 import Words from './sections/Words';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
+import Lightbox from './Lightbox';
 
 /**
  * One page, one state object — mirrors the design canvas logic.
@@ -20,6 +21,8 @@ export default function Portfolio({ handNotes = true, motion = true }) {
   const [s, setS] = useState({});
   const setState = useCallback((patch) => setS((prev) => ({ ...prev, ...patch })), []);
   const raf = useRef(0);
+  const [lightbox, setLightbox] = useState(null); // video open in the lightbox
+  const closeLightbox = useCallback(() => setLightbox(null), []);
 
   // Each [data-io] block (a section, a heading, a tile, a card…) plays its animations once it
   // scrolls into view; CSS keeps them paused until data-seen is set. Set straight on the DOM so
@@ -141,6 +144,7 @@ export default function Portfolio({ handNotes = true, motion = true }) {
       pausedCls: playing ? '' : 'paused',
       playLabel: playing ? 'pause showreel' : 'play showreel',
       togglePlay: () => setS((prev) => ({ ...prev, paused: prev.paused !== true })),
+      play: setLightbox,
       tools,
       sel,
       items,
@@ -162,6 +166,7 @@ export default function Portfolio({ handNotes = true, motion = true }) {
       <Words v={v} />
       <Contact v={v} />
       <Footer v={v} />
+      <Lightbox item={lightbox} onClose={closeLightbox} />
     </div>
   );
 }

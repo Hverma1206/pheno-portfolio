@@ -11,7 +11,7 @@ export default function Nav({ v }) {
 </a>
 <div className="hlinks sm">
 <a className="nl" href="#bag">{"the bag"}</a>
-<a className="nl" href="#proud">{"proudest"}</a>
+<a className="nl" href="#showreel">{"showreel"}</a>
 <a className="nl" href="#work">{"work"}</a>
 <a className="nl" href="#words">{"words"}</a>
 </div>
