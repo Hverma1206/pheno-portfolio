@@ -6,6 +6,8 @@ export default function Featured({ v }) {
   const playerRef = useRef(null);
   const screenRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  // The YouTube player is ~1 MB of scripts, so it only loads once the visitor scrolls within a screen of it.
+  const [isNear, setIsNear] = useState(false);
   const [soundOn, setSoundOn] = useState(false);
 
   const sendPlayerCommand = (func, args = []) => {
@@ -32,8 +34,20 @@ export default function Featured({ v }) {
       ([entry]) => setIsVisible(entry.isIntersecting),
       { threshold: 0.35 }
     );
+    const nearObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setIsNear(true);
+        nearObserver.disconnect();
+      },
+      { rootMargin: "100% 0px" }
+    );
     observer.observe(screen);
-    return () => observer.disconnect();
+    nearObserver.observe(screen);
+    return () => {
+      observer.disconnect();
+      nearObserver.disconnect();
+    };
   }, []);
 
   return (
@@ -49,7 +63,7 @@ export default function Featured({ v }) {
 <span className="washi" aria-hidden="true" style={{ left: "-30px", top: "10px", transform: "rotate(-38deg)" }}></span>
 <span className="washi" aria-hidden="true" style={{ right: "-30px", top: "10px", transform: "rotate(38deg)" }}></span>
 <div ref={screenRef} className={`screen ${v.pausedCls}`}>
-<iframe
+{isNear ? <iframe
   ref={playerRef}
   className="showreel-player"
   src="https://www.youtube-nocookie.com/embed/9jZO4k1g_Do?mute=1&loop=1&playlist=9jZO4k1g_Do&controls=0&modestbranding=1&playsinline=1&enablejsapi=1&rel=0&iv_load_policy=3&cc_load_policy=0"
@@ -61,7 +75,7 @@ export default function Featured({ v }) {
     sendPlayerCommand(soundOn ? "unMute" : "mute");
     sendPlayerCommand("unloadModule", ["captions"]);
   }}
-/>
+/> : null}
 </div>
 <div className="showreel-caption">
 <p className="kl">{"showreel - the best 2 minutes i've ever cut ♡"}</p>

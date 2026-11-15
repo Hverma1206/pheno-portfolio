@@ -54,33 +54,8 @@ export default function Portfolio({ handNotes = true, motion = true }) {
     const mx = s.mx || 0;
     const my = s.my || 0;
 
-    // What's in my bag
-    const picked = s.tool || 'pr';
-    let sel = null;
-    const tools = TOOLS.map((d, i) => {
-      const on = picked === d[0];
-      if (on) {
-        sel = {
-          id: d[0],
-          idx: String(i + 1).padStart(2, '0'),
-          total: String(TOOLS.length).padStart(2, '0'),
-          name: d[1],
-          line: d[2],
-          color: d[4],
-          at: d[5],
-          uses: d[3].map((u) => ({ label: u })),
-        };
-      }
-      return {
-        id: d[0],
-        name: d[1],
-        color: d[4],
-        at: d[5],
-        on: on ? 'on' : '',
-        pressed: on ? 'true' : 'false',
-        pick: () => setS((prev) => (prev.tool === d[0] ? prev : { ...prev, tool: d[0] })),
-      };
-    });
+    // What's in my bag — just the logos and their names
+    const tools = TOOLS.map((d, i) => ({ id: d[0], name: d[1], color: d[4], i }));
 
     // Everything, in motion
     const items = WORK.map((w) => ({
@@ -99,7 +74,10 @@ export default function Portfolio({ handNotes = true, motion = true }) {
           ? `https://player.vimeo.com/video/${w.vimeo}?autoplay=1&title=0&byline=0&portrait=0&dnt=1`
           : w.ig
             ? `https://www.instagram.com/reel/${w.ig}/embed/`
-            : '',
+            : w.mp4
+              ? encodeURI(w.mp4)
+              : '',
+      mp4: !!w.mp4,
       thumb: w.thumb || (w.yt ? `https://i.ytimg.com/vi/${w.yt}/maxresdefault.jpg` : ''),
     }));
 
@@ -124,7 +102,6 @@ export default function Portfolio({ handNotes = true, motion = true }) {
       playLabel: playing ? 'pause showreel' : 'play showreel',
       togglePlay: () => setS((prev) => ({ ...prev, paused: prev.paused !== true })),
       tools,
-      sel,
       items,
     };
   }, [s, handNotes, motion, setState]);

@@ -6,7 +6,7 @@ export default function Words({ v }) {
 <section id="words" data-io="words" style={{ padding: "140px 0", borderBottom: "1px solid #2a2433" }}>
 <div className="wrap">
 <div className="rv" data-io style={{ marginBottom: "64px" }}>
-<p className="mono label">{"04 — words"}</p>
+{/* <p className="mono label">{"04 — words"}</p> */}
 <h2 className="serif h2">{"what they said "}<i className="nr" style={{ color: "#a78bfa" }}>{"(unprompted)."}</i></h2>
 </div>
 <div className="tgrid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "24px", alignItems: "start" }}>

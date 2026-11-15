@@ -19,7 +19,9 @@ export default function Work({ v }) {
 {/* a tile remounts when its player closes; once anything was opened, mark tiles seen up front so it can't stay hidden */}
 {open === it.embed && it.embed ? (
 <div className={`tile ${it.cls} is-open`}>
-<iframe className="tplayer" src={it.embed} title={it.title} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />
+{it.mp4
+  ? <video className="tplayer" src={it.embed} title={it.title} autoPlay controls playsInline />
+  : <iframe className="tplayer" src={it.embed} title={it.title} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />}
 </div>
 ) : (
 <a href={it.href} className={`tile ${it.cls}`} data-io data-seen={open ? '' : undefined} aria-label={it.aria} onClick={it.embed ? (e) => { e.preventDefault(); setOpen(it.embed); } : undefined}>

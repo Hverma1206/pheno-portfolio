@@ -12,11 +12,13 @@ const excalifont = localFont({
   variable: '--font-excalifont',
 });
 
-// Newsreader (SIL OFL 1.1), for a few accent phrases (.nr in globals.css).
+// Newsreader (SIL OFL 1.1), for a few accent phrases (.nr in globals.css). These are the variable .ttf files cut down
+// to Latin and to what the site uses (upright: weight 400 for the h2 accents; italic: weight 400-700), ~120 KB instead of ~920 KB.
+// Using another weight or a non-Latin character? Re-cut them from the .ttf originals in fonts/Newsreader.
 const newsreader = localFont({
   src: [
-    { path: '../fonts/Newsreader/Newsreader-VariableFont_opsz,wght.ttf', weight: '200 800', style: 'normal' },
-    { path: '../fonts/Newsreader/Newsreader-Italic-VariableFont_opsz,wght.ttf', weight: '200 800', style: 'italic' },
+    { path: '../fonts/Newsreader/Newsreader-Roman.woff2', weight: '400', style: 'normal' },
+    { path: '../fonts/Newsreader/Newsreader-Italic.woff2', weight: '400 700', style: 'italic' },
   ],
   display: 'swap',
   variable: '--font-newsreader',

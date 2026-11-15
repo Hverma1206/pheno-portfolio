@@ -5,3 +5,5 @@ out
 .DS_Store
 *.log
 .vercel
+# full-size video exports; the site serves the compressed copies in public/reels
+media-originals
