@@ -1,5 +1,6 @@
 import localFont from 'next/font/local';
 import { Gloria_Hallelujah } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 // Excalifont (Excalidraw, SIL OFL 1.1) is the site's typeface; next/font preloads it
@@ -44,7 +45,10 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${excalifont.variable} ${gloria.variable} ${newsreader.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
