@@ -1,5 +1,32 @@
 // Hero — name intro, headline, playing reels
 // Ported from the design canvas (05 — Diary × Edit Bay).
+import { useRef, useState } from "react";
+
+// Muted looping YouTube clip. The iframe stays hidden (thumbnail shows instead) unless the player
+// reports "playing", so YouTube's big play button never shows during load, buffering or loop restarts.
+function HeroYT({ id }) {
+  const ref = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  const listen = () => {
+    const win = ref.current?.contentWindow;
+    if (!win) return;
+    const onMsg = (e) => {
+      if (e.source !== win) return;
+      let d; try { d = JSON.parse(e.data); } catch { return; }
+      const st = d.event === "onStateChange" ? d.info : d.info?.playerState;
+      if (typeof st === "number") setPlaying(st === 1);
+    };
+    window.addEventListener("message", onMsg);
+    win.postMessage(JSON.stringify({ event: "listening", id }), "*");
+  };
+  return (
+    <>
+      <img className="hvid" src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" aria-hidden="true" />
+      <iframe ref={ref} onLoad={listen} className="hvid" src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&enablejsapi=1`} title="" tabIndex={-1} allow="autoplay; encrypted-media" aria-hidden="true" style={{ border: 0, pointerEvents: "none", opacity: playing ? 1 : 0, transition: "opacity .3s" }} />
+    </>
+  );
+}
+
 export default function Hero({ v }) {
   return (
     <>
@@ -34,18 +61,18 @@ export default function Hero({ v }) {
 <svg className="star doodle" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" style={{ position: "absolute", left: "20px", top: "210px", color: "#a78bfa", animationDelay: "-1s" }} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"></path></svg>
 <div className="pxA" style={{ position: "absolute", right: "120px", top: "120px" }}>
 <div style={{ transform: v.pA, transition: "transform .7s cubic-bezier(.2,.8,.2,1)" }}>
-<div className="pol pin" style={{ "--r": "-7deg", "--d": ".9s", position: "relative" }} role="button" tabIndex={0} aria-label="play reel 01" onClick={() => v.play({ title: "reel 01", embed: "/hero/hero-2.mp4", mp4: true })} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.currentTarget.click(); } }}>
+<div className="pol pin" style={{ "--r": "-7deg", "--d": ".9s", position: "relative" }} role="button" tabIndex={0} aria-label="play reel 01" onClick={() => v.play({ title: "reel 01", embed: "https://www.youtube-nocookie.com/embed/NGMV4oXzrcU?autoplay=1&rel=0&modestbranding=1&playsinline=1" })} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.currentTarget.click(); } }}>
 <span className="tape" aria-hidden="true"></span>
-<div className="ph ph1 reelph" style={{ width: "304px", height: "171px" }}><video className="hvid" src="/hero/hero-2.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" /><span className="live sm"><i></i>{"playing"}</span></div>
+<div className="ph ph1 reelph" style={{ width: "304px", height: "171px" }}><HeroYT id="NGMV4oXzrcU" /><span className="live sm"><i></i>{"playing"}</span></div>
 <span className="cap kl">{"reel 01 — [client]"}</span>
 </div>
 </div>
 </div>
 <div className="pxC" style={{ position: "absolute", right: "10px", top: "335px" }}>
 <div style={{ transform: v.pC, transition: "transform .8s cubic-bezier(.2,.8,.2,1)" }}>
-<div className="pol pin" style={{ "--r": "-3deg", "--d": "1.2s", position: "relative" }} role="button" tabIndex={0} aria-label="play launch trailer" onClick={() => v.play({ title: "launch trailer", embed: "/hero/hero-1.mp4", mp4: true })} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.currentTarget.click(); } }}>
+<div className="pol pin" style={{ "--r": "-3deg", "--d": "1.2s", position: "relative" }} role="button" tabIndex={0} aria-label="play launch trailer" onClick={() => v.play({ title: "launch trailer", embed: "https://www.youtube-nocookie.com/embed/g-HIRzarndM?autoplay=1&rel=0&modestbranding=1&playsinline=1" })} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.currentTarget.click(); } }}>
 <span className="tape" aria-hidden="true" style={{ transform: "rotate(-8deg)" }}></span>
-<div className="ph ph6 reelph" style={{ width: "304px", height: "171px" }}><video className="hvid" src="/hero/hero-1.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" /><span className="live sm"><i></i>{"playing"}</span></div>
+<div className="ph ph6 reelph" style={{ width: "304px", height: "171px" }}><HeroYT id="g-HIRzarndM" /><span className="live sm"><i></i>{"playing"}</span></div>
 <span className="cap kl">{"launch trailer ✓ approved"}</span>
 </div>
 </div>

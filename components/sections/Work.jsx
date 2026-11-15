@@ -6,7 +6,7 @@ import Image from 'next/image';
 export default function Work({ v }) {
   return (
     <>
-<section id="work" data-io="work" style={{ padding: "140px 0", borderBottom: "1px solid #2a2433" }}>
+<section id="work" data-io="work" style={{ padding: "140px 0" }}>
 <div className="wrap">
 <div className="rv" data-io style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: "28px", marginBottom: "48px" }}>
 <div>

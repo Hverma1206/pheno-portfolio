@@ -32,7 +32,7 @@ export default function Featured({ v }) {
 
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.35 }
+      { threshold: 0.1 }
     );
     const nearObserver = new IntersectionObserver(
       ([entry]) => {

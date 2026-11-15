@@ -3,7 +3,7 @@
 export default function Contact({ v }) {
   return (
     <>
-<section id="contact" data-io="contact" style={{ padding: "140px 0", borderBottom: "1px solid #2a2433" }}>
+<section id="contact" data-io="contact" style={{ padding: "140px 0" }}>
 <div className="wrap">
 <div className="wcard rv" data-io>
 <div className="wgrid2" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "72px", alignItems: "center" }}>

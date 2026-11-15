@@ -6,7 +6,7 @@ import { WORDS } from '@/lib/data';
 export default function Words({ v }) {
   return (
     <>
-<section id="words" data-io="words" style={{ padding: "140px 0", borderBottom: "1px solid #2a2433" }}>
+<section id="words" data-io="words" style={{ padding: "140px 0" }}>
 <div className="wrap">
 <div className="rv" data-io style={{ marginBottom: "64px" }}>
 {/* <p className="mono label">{"04 — words"}</p> */}

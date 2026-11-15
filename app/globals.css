@@ -345,7 +345,7 @@ html{scroll-behavior:smooth}
 .ppl svg path{stroke-dasharray:420;animation:pline .5s calc(var(--pd) + .11s) ease-in-out both}
 /* showreel: frame lands, the screen switches on like a monitor, tapes slap on, caption follows */
 @keyframes screenOn{0%{clip-path:inset(50% 50% 50% 50%)}45%{clip-path:inset(calc(50% - 1px) 0 calc(50% - 1px) 0)}100%{clip-path:inset(0)}}
-.tilt .screen{animation:screenOn .55s .41s cubic-bezier(.7,0,.2,1) both}
+.tilt .screen{animation:screenOn .4s .05s cubic-bezier(.7,0,.2,1) both}
 .tilt .washi{animation:tapeIn .25s .63s ease-out both}
 .tilt .washi+.washi{animation-delay:.72s}
 .showreel-caption{animation:rise .44s .66s cubic-bezier(.16,1,.3,1) both}
