@@ -24,8 +24,8 @@ export default function Contact({ v }) {
 <svg className="wframe-line" aria-hidden="true" viewBox="0 0 600 560" preserveAspectRatio="none" fill="none" stroke="#6a3cf5" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"><path pathLength="1" d="M40 8 C 200 2, 420 6, 560 12 C 590 14, 594 40, 594 70 C 596 220, 592 380, 590 500 C 590 534, 570 548, 540 550 C 380 556, 200 552, 50 548 C 20 548, 6 530, 6 500 C 4 360, 8 200, 10 60 C 10 26, 22 10, 50 8"></path></svg>
 <div className="wpol">
 <span className="wtape" aria-hidden="true"></span>
-<div className="wphoto"><span className="mono" style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", color: "#ddd3ff" }}>{"[ your photo ]"}</span></div>
-<p className="kl f2" style={{ margin: "0", padding: "14px 0 6px", textAlign: "center", fontSize: "34px", fontWeight: "700", color: "#5b2fe0" }}>{"[your name]"}</p>
+<div className="wphoto"><img src="/pheno_photo.jpeg" alt="Pheno" width="810" height="1080" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 25%", display: "block" }} /></div>
+<p className="kl f2" style={{ margin: "0", padding: "14px 0 6px", textAlign: "center", fontSize: "34px", fontWeight: "700", color: "#5b2fe0" }}>{"Shreyansh"}</p>
 </div>
 {/* the apps from "what's in my bag", as hand-drawn icons */}
 <div className="wtiles">

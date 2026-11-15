@@ -51,14 +51,44 @@ export default function Portfolio({ handNotes = true, motion = true }) {
 
   const v = useMemo(() => {
     const playing = s.paused !== true;
-    const mx = s.mx || 0;
-    const my = s.my || 0;
 
-    // What's in my bag — just the logos and their names
-    const tools = TOOLS.map((d, i) => ({ id: d[0], name: d[1], color: d[4], i }));
+    // What's in my bag — one taped polaroid per app
+    const picked = s.tool || 'pr';
+    let sel = null;
+    const tools = TOOLS.map((d, i) => {
+      const on = picked === d[0];
+      if (on) {
+        sel = {
+          id: d[0],
+          idx: String(i + 1).padStart(2, '0'),
+          total: String(TOOLS.length).padStart(2, '0'),
+          name: d[1],
+          line: d[2],
+          color: d[4],
+          uses: d[3].map((u) => ({ label: u })),
+        };
+      }
+      return {
+        id: d[0],
+        name: d[1],
+        color: d[4],
+        on: on ? 'on' : '',
+        pressed: on ? 'true' : 'false',
+        pick: () => setS((prev) => (prev.tool === d[0] ? prev : { ...prev, tool: d[0] })),
+      };
+    });
 
     // Everything, in motion
-    const items = WORK.map((w) => ({
+    // Zigzag reels and long-form (r, l, l, r) so each desktop row is one 1-col reel + one 3-col video.
+    const reels = WORK.filter((w) => w.k === 'reel');
+    const rest = WORK.filter((w) => w.k !== 'reel');
+    const ordered = [];
+    while (reels.length || rest.length) {
+      const flip = ordered.length % 4 === 2; // rows alternate: reel first, then video first
+      const pair = flip ? [rest.shift(), reels.shift()] : [reels.shift(), rest.shift()];
+      ordered.push(...pair.filter(Boolean));
+    }
+    const items = ordered.map((w) => ({
       title: w.title,
       sub: w.sub,
       dur: w.dur || '',
@@ -83,27 +113,36 @@ export default function Portfolio({ handNotes = true, motion = true }) {
       sizes: w.k === 'reel' ? '(max-width: 900px) 50vw, 300px' : w.wide ? '(max-width: 900px) 100vw, 930px' : '(max-width: 900px) 100vw, 620px',
     }));
 
-    const t = (k1, k2) => `translate(${(mx * k1).toFixed(1)}px,${(my * k2).toFixed(1)}px)`;
+    // parallax reads --mx/--my, set straight on the hero element so mouse moves don't re-render the page
+    const t = (k1, k2) => `translate(calc(var(--mx, 0) * ${k1}px), calc(var(--my, 0) * ${k2}px))`;
 
     return {
       rootCls: (handNotes ? '' : 'nonotes nolinks ') + (motion ? '' : 'calm'),
       pA: t(-30, -22),
-      pB: t(26, 18),
       pC: t(-14, 30),
       heroMove: (e) => {
         const r = e.currentTarget.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width - 0.5;
         const y = (e.clientY - r.top) / r.height - 0.5;
         cancelAnimationFrame(raf.current);
-        raf.current = requestAnimationFrame(() => setState({ mx: x, my: y }));
+        const el = e.currentTarget;
+        raf.current = requestAnimationFrame(() => {
+          el.style.setProperty('--mx', x.toFixed(3));
+          el.style.setProperty('--my', y.toFixed(3));
+        });
       },
-      heroLeave: () => setState({ mx: 0, my: 0 }),
+      heroLeave: (e) => {
+        cancelAnimationFrame(raf.current);
+        e.currentTarget.style.setProperty('--mx', '0');
+        e.currentTarget.style.setProperty('--my', '0');
+      },
       playing,
       notPlaying: !playing,
       pausedCls: playing ? '' : 'paused',
       playLabel: playing ? 'pause showreel' : 'play showreel',
       togglePlay: () => setS((prev) => ({ ...prev, paused: prev.paused !== true })),
       tools,
+      sel,
       items,
     };
   }, [s, handNotes, motion, setState]);

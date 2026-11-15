@@ -28,33 +28,24 @@ export default function Hero({ v }) {
 </div>
 <a href="#socials" className="stamp stamp-ink" style={{ marginTop: "24px" }}>{"write to me →"}</a>
 <div className="pols" style={{ position: "absolute", top: "40px", right: "40px", width: "440px", height: "720px" }}>
-<svg className="arrow doodle" aria-hidden="true" viewBox="0 0 180 90" width="180" height="90" style={{ position: "absolute", left: "-130px", top: "410px", color: "#7c3aed" }} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 70 C 50 84, 120 70, 168 20"></path><path d="M150 22 L 170 18 L 166 40"></path></svg>
-<span className="kl doodle proofw" aria-hidden="true" style={{ position: "absolute", left: "-110px", top: "505px", fontSize: "26px", color: "#7c3aed", transform: "rotate(-6deg)" }}>{"proof →"}</span>
+<svg className="arrow doodle" aria-hidden="true" viewBox="0 0 180 90" width="180" height="90" style={{ position: "absolute", left: "-130px", top: "390px", color: "#7c3aed" }} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 70 C 50 84, 120 70, 168 20"></path><path d="M150 22 L 170 18 L 166 40"></path></svg>
+<span className="kl doodle proofw" aria-hidden="true" style={{ position: "absolute", left: "-110px", top: "485px", fontSize: "26px", color: "#7c3aed", transform: "rotate(-6deg)" }}>{"proof →"}</span>
 <svg className="star doodle" aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" style={{ position: "absolute", left: "-20px", top: "30px", color: "#7c3aed" }} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"></path></svg>
 <svg className="star doodle" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" style={{ position: "absolute", left: "20px", top: "210px", color: "#a78bfa", animationDelay: "-1s" }} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"></path></svg>
-<div className="pxA" style={{ position: "absolute", right: "190px", top: "10px" }}>
+<div className="pxA" style={{ position: "absolute", right: "120px", top: "120px" }}>
 <div style={{ transform: v.pA, transition: "transform .7s cubic-bezier(.2,.8,.2,1)" }}>
-<div className="pol pin" style={{ "--r": "-7deg", "--d": "1.6s", position: "relative" }}>
+<div className="pol pin" style={{ "--r": "-7deg", "--d": ".9s", position: "relative" }}>
 <span className="tape" aria-hidden="true"></span>
-<div className="ph ph1 reelph" style={{ width: "210px", height: "300px" }}><video className="hvid" src="/hero/hero-1.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" /><span className="live sm"><i></i>{"playing"}</span></div>
+<div className="ph ph1 reelph" style={{ width: "304px", height: "171px" }}><video className="hvid" src="/hero/hero-2.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" /><span className="live sm"><i></i>{"playing"}</span></div>
 <span className="cap kl">{"reel 01 — [client]"}</span>
 </div>
 </div>
 </div>
-<div className="pxB" style={{ position: "absolute", right: "0", top: "150px" }}>
-<div style={{ transform: v.pB, transition: "transform .9s cubic-bezier(.2,.8,.2,1)" }}>
-<div className="pol pin" style={{ "--r": "6deg", "--d": "1.9s", position: "relative" }}>
-<span className="tape" aria-hidden="true" style={{ transform: "rotate(5deg)" }}></span>
-<div className="ph ph4 reelph" style={{ width: "220px", height: "260px" }}><span className="clip ph4" style={{ animationDelay: "-1s" }}><span className="ctag">{"clip 01"}</span></span><span className="clip ph6" style={{ animationDelay: "-4s" }}><span className="ctag">{"clip 02"}</span></span><span className="clip ph3" style={{ animationDelay: "-7s" }}><span className="ctag">{"clip 03"}</span></span><span className="live sm"><i></i>{"playing"}</span><span className="rbar"><i style={{ animationDelay: "-1s" }}></i></span></div>
-<span className="cap kl">{"sunset grade, take 3"}</span>
-</div>
-</div>
-</div>
-<div className="pxC" style={{ position: "absolute", right: "120px", top: "400px" }}>
+<div className="pxC" style={{ position: "absolute", right: "10px", top: "335px" }}>
 <div style={{ transform: v.pC, transition: "transform .8s cubic-bezier(.2,.8,.2,1)" }}>
-<div className="pol pin" style={{ "--r": "-3deg", "--d": "2.2s", position: "relative" }}>
+<div className="pol pin" style={{ "--r": "-3deg", "--d": "1.2s", position: "relative" }}>
 <span className="tape" aria-hidden="true" style={{ transform: "rotate(-8deg)" }}></span>
-<div className="ph ph6 reelph" style={{ width: "240px", height: "170px" }}><video className="hvid" src="/hero/hero-2.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" /><span className="live sm"><i></i>{"playing"}</span></div>
+<div className="ph ph6 reelph" style={{ width: "304px", height: "171px" }}><video className="hvid" src="/hero/hero-1.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" /><span className="live sm"><i></i>{"playing"}</span></div>
 <span className="cap kl">{"launch trailer ✓ approved"}</span>
 </div>
 </div>

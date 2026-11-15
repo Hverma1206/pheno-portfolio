@@ -211,7 +211,7 @@ function start(canvas, still) {
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   };
   const resize = () => {
-    dpr = Math.min(window.devicePixelRatio || 1, 1.5) * quality;
+    dpr = Math.min(window.devicePixelRatio || 1, 1) * quality; // soft, blurry background: 1x is plenty
     canvas.width = Math.max(1, Math.round(canvas.clientWidth * dpr));
     canvas.height = Math.max(1, Math.round(canvas.clientHeight * dpr));
     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -225,12 +225,13 @@ function start(canvas, still) {
   let seen = 0;
   const frame = (now) => {
     raf = requestAnimationFrame(frame);
+    if (now - last < 1000 / 31) return; // ~30 fps is enough for slow light; halves GPU work
     const dt = Math.min(Math.max(now - last, 0) / 1000, 1 / 15);
     last = now;
     t += dt * SPEED;
     draw();
     avg = avg * 0.95 + dt * 0.05;
-    if (++seen > 90 && avg > 1 / 50 && quality > 0.5) {
+    if (++seen > 45 && avg > 1 / 25 && quality > 0.5) {
       quality *= 0.8;
       seen = 0;
       resize();
