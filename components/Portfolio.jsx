@@ -79,6 +79,8 @@ export default function Portfolio({ handNotes = true, motion = true }) {
               : '',
       mp4: !!w.mp4,
       thumb: w.thumb || (w.yt ? `https://i.ytimg.com/vi/${w.yt}/maxresdefault.jpg` : ''),
+      // the tile's width: 4 columns on desktop (max 1320px), 2 below 900px; a wide tile spans 3 (desktop) / 2 (phone)
+      sizes: w.k === 'reel' ? '(max-width: 900px) 50vw, 300px' : w.wide ? '(max-width: 900px) 100vw, 930px' : '(max-width: 900px) 100vw, 620px',
     }));
 
     const t = (k1, k2) => `translate(${(mx * k1).toFixed(1)}px,${(my * k2).toFixed(1)}px)`;

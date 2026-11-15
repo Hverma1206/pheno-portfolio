@@ -1,6 +1,7 @@
 // Everything, in motion — reels / videos grid
 // Ported from the design canvas (05 — Diary × Edit Bay).
 import { Fragment, useState } from 'react';
+import Image from 'next/image';
 
 export default function Work({ v }) {
   // Only the clicked tile loads its player; the rest stay as light cover images.
@@ -25,7 +26,7 @@ export default function Work({ v }) {
 </div>
 ) : (
 <a href={it.href} className={`tile ${it.cls}`} data-io data-seen={open ? '' : undefined} aria-label={it.aria} onClick={it.embed ? (e) => { e.preventDefault(); setOpen(it.embed); } : undefined}>
-<span className={`th ${it.th}`}>{it.thumb ? <img src={it.thumb} alt="" loading="lazy" /> : null}</span>
+<span className={`th ${it.th}`}>{it.thumb ? <Image src={it.thumb} alt="" fill sizes={it.sizes} /> : null}</span>
 {it.thumb ? null : <span className="glyph serif" aria-hidden="true">{it.glyph}</span>}
 <span className="chip mono">{it.kind}</span>
 {it.dur ? <span className="dur mono">{it.dur}</span> : null}

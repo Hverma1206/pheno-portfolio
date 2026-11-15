@@ -169,109 +169,127 @@ const PARAMS = { u_grain: 0.55, u_slats: 0.55, u_haze: 0.75 };
 const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
 const COLOURS = { uBg: hex('#0f0d13'), uFg: hex('#ffffff'), uAccent: hex('#8f72ff') };
 
+// Sets the shader up on the canvas and starts it; returns the clean-up.
+function start(canvas, still) {
+  const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, depth: false, stencil: false });
+  if (!gl) return undefined; // no WebGL2: the plain dark page background stays
+
+  const compile = (type, src) => {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src.trim());
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  };
+  const prog = gl.createProgram();
+  try {
+    gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+  } catch (err) {
+    console.error('[blinds]', err.message);
+    return undefined;
+  }
+  gl.useProgram(prog);
+  gl.bindVertexArray(gl.createVertexArray());
+  const u = (name) => gl.getUniformLocation(prog, name);
+  Object.entries(COLOURS).forEach(([k, c]) => gl.uniform3fv(u(k), c));
+  Object.entries(PARAMS).forEach(([k, val]) => gl.uniform1f(u(k), val));
+  gl.uniform1f(u('uPeriod'), PERIOD);
+  const uRes = u('uRes');
+  const uDpr = u('uDpr');
+  const uTime = u('uTime');
+
+  let t = STILL_T;
+  let dpr = 1;
+  let quality = 1; // drops in steps on devices that can't hold ~50 fps
+  const draw = () => {
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.uniform1f(uDpr, dpr);
+    gl.uniform1f(uTime, t);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  };
+  const resize = () => {
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5) * quality;
+    canvas.width = Math.max(1, Math.round(canvas.clientWidth * dpr));
+    canvas.height = Math.max(1, Math.round(canvas.clientHeight * dpr));
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    draw();
+  };
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let raf = 0;
+  let last = 0;
+  let avg = 1 / 60;
+  let seen = 0;
+  const frame = (now) => {
+    raf = requestAnimationFrame(frame);
+    const dt = Math.min(Math.max(now - last, 0) / 1000, 1 / 15);
+    last = now;
+    t += dt * SPEED;
+    draw();
+    avg = avg * 0.95 + dt * 0.05;
+    if (++seen > 90 && avg > 1 / 50 && quality > 0.5) {
+      quality *= 0.8;
+      seen = 0;
+      resize();
+    }
+  };
+  // Animate only while the tab is visible and motion is allowed; with motion off, hold one frame.
+  const update = () => {
+    cancelAnimationFrame(raf);
+    if (still || reduce.matches) {
+      t = STILL_T;
+      draw();
+    } else if (!document.hidden) {
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    }
+  };
+  const stage = canvas.parentElement;
+  const lost = (e) => {
+    e.preventDefault();
+    cancelAnimationFrame(raf);
+    delete stage.dataset.ready; // fade back to the plain background
+  };
+
+  const ro = new ResizeObserver(resize);
+  ro.observe(canvas);
+  document.addEventListener('visibilitychange', update);
+  reduce.addEventListener('change', update);
+  canvas.addEventListener('webglcontextlost', lost);
+  resize();
+  update();
+  stage.dataset.ready = '';
+
+  return () => {
+    cancelAnimationFrame(raf);
+    ro.disconnect();
+    document.removeEventListener('visibilitychange', update);
+    reduce.removeEventListener('change', update);
+    canvas.removeEventListener('webglcontextlost', lost);
+  };
+}
+
 export default function Blinds({ still = false }) {
   const ref = useRef(null);
 
+  // Compiling the shader blocks the main thread for a moment, so it waits until the page has loaded and gone
+  // idle; the canvas fades in over ~2 s anyway, so the wait doesn't show.
   useEffect(() => {
-    const canvas = ref.current;
-    const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, depth: false, stencil: false });
-    if (!gl) return undefined; // no WebGL2: the plain dark page background stays
-
-    const compile = (type, src) => {
-      const s = gl.createShader(type);
-      gl.shaderSource(s, src.trim());
-      gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
-      return s;
+    let cancelled = false;
+    let stop;
+    const go = () => {
+      if (!cancelled) stop = start(ref.current, still);
     };
-    const prog = gl.createProgram();
-    try {
-      gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
-      gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
-      gl.linkProgram(prog);
-      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
-    } catch (err) {
-      console.error('[blinds]', err.message);
-      return undefined;
-    }
-    gl.useProgram(prog);
-    gl.bindVertexArray(gl.createVertexArray());
-    const u = (name) => gl.getUniformLocation(prog, name);
-    Object.entries(COLOURS).forEach(([k, c]) => gl.uniform3fv(u(k), c));
-    Object.entries(PARAMS).forEach(([k, val]) => gl.uniform1f(u(k), val));
-    gl.uniform1f(u('uPeriod'), PERIOD);
-    const uRes = u('uRes');
-    const uDpr = u('uDpr');
-    const uTime = u('uTime');
-
-    let t = STILL_T;
-    let dpr = 1;
-    let quality = 1; // drops in steps on devices that can't hold ~50 fps
-    const draw = () => {
-      gl.uniform2f(uRes, canvas.width, canvas.height);
-      gl.uniform1f(uDpr, dpr);
-      gl.uniform1f(uTime, t);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
-    };
-    const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5) * quality;
-      canvas.width = Math.max(1, Math.round(canvas.clientWidth * dpr));
-      canvas.height = Math.max(1, Math.round(canvas.clientHeight * dpr));
-      gl.viewport(0, 0, canvas.width, canvas.height);
-      draw();
-    };
-
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let raf = 0;
-    let last = 0;
-    let avg = 1 / 60;
-    let seen = 0;
-    const frame = (now) => {
-      raf = requestAnimationFrame(frame);
-      const dt = Math.min(Math.max(now - last, 0) / 1000, 1 / 15);
-      last = now;
-      t += dt * SPEED;
-      draw();
-      avg = avg * 0.95 + dt * 0.05;
-      if (++seen > 90 && avg > 1 / 50 && quality > 0.5) {
-        quality *= 0.8;
-        seen = 0;
-        resize();
-      }
-    };
-    // Animate only while the tab is visible and motion is allowed; with motion off, hold one frame.
-    const update = () => {
-      cancelAnimationFrame(raf);
-      if (still || reduce.matches) {
-        t = STILL_T;
-        draw();
-      } else if (!document.hidden) {
-        last = performance.now();
-        raf = requestAnimationFrame(frame);
-      }
-    };
-    const stage = canvas.parentElement;
-    const lost = (e) => {
-      e.preventDefault();
-      cancelAnimationFrame(raf);
-      delete stage.dataset.ready; // fade back to the plain background
-    };
-
-    const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
-    document.addEventListener('visibilitychange', update);
-    reduce.addEventListener('change', update);
-    canvas.addEventListener('webglcontextlost', lost);
-    resize();
-    update();
-    stage.dataset.ready = '';
-
+    const later = () => ('requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 2000 }) : setTimeout(go, 300));
+    if (document.readyState === 'complete') later();
+    else window.addEventListener('load', later, { once: true });
     return () => {
-      cancelAnimationFrame(raf);
-      ro.disconnect();
-      document.removeEventListener('visibilitychange', update);
-      reduce.removeEventListener('change', update);
-      canvas.removeEventListener('webglcontextlost', lost);
+      cancelled = true;
+      window.removeEventListener('load', later);
+      stop?.();
     };
   }, [still]);
 

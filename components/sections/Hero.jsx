@@ -3,7 +3,8 @@
 export default function Hero({ v }) {
   return (
     <>
-<section className="herowrap" data-io="hero" style={{ position: "relative", padding: "28px 40px 56px" }}>
+{/* data-seen is set in the markup: the hero is on screen at load, so its intro plays without waiting for the JS */}
+<section className="herowrap" data-io="hero" data-seen="" style={{ position: "relative", padding: "28px 40px 56px" }}>
 <div className="page gridpaper" onMouseMove={v.heroMove} onMouseLeave={v.heroLeave} style={{ position: "relative", minHeight: "980px", overflow: "hidden", borderRadius: "28px", backgroundColor: "#ecebe7", color: "#15111c", boxShadow: "0 40px 120px -40px rgba(124,58,237,.4)" }}>
 <span className="pcorner" aria-hidden="true" style={{ left: "22px", top: "22px", borderWidth: "2px 0 0 2px" }}></span>
 <span className="pcorner" aria-hidden="true" style={{ right: "22px", top: "22px", borderWidth: "2px 2px 0 0" }}></span>
